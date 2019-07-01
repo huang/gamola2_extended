@@ -1,0 +1,173 @@
+##--git commands--
+#git clone https://github.com/jhuang/damian_extended.git 
+##no changes added to commit (use "git add" and/or "git commit -a")
+#git commit -a -m "changed file permissons" 
+#git push origin master
+#git remote set-url origin https://github.com/jhuang/damian_extended.git
+
+#…or create a new repository on the command line
+#echo "# damian_extended" >> README.md
+#git init
+#git add README.md
+#git commit -m "first commit"
+#git remote add origin https://github.com/huang/damian_extended.git
+#git push -u origin master
+#.......or push an existing repository from the command line
+#git remote add origin https://github.com/huang/damian_extended.git or git remote set-url origin https://github.com/huang/damian_extended.git
+#git push -u origin master
+
+#git add --all
+#git commit -am "<commit message>"
+#git push
+
+
+
+
+# --1-- GAMOLA2_STEP1: construct env
+ln -s /media/jhuang/Titisee/GAMOLA2 GAMOLA2
+#under ~/DATA/Data_Tam_RNASeq/GAMOLA2
+construct_Results.sh #or clean_Results.sh
+
+
+
+# --2-- prepare fasta and model
+# under results/reference_genome
+#paaI
+#https://www.biostars.org/p/222028/
+grep "ID=gene" GCF_002811175.1_ASM281117v1_genomic.gff > GCF_002811175.gff
+bedtools getfasta -fi GCF_002811175.1_ASM281117v1_genomic.fna -bed GCF_002811175.gff -s -fo GCF_002811175.fna -name
+cut -f1-2 -d$'\t' GCF_002811175.gff > f1-2
+cut -f4- -d$'\t' GCF_002811175.gff > f4-
+cut -f9-9 -d$'\t' GCF_002811175.gff > f9
+cut -f2-2 -d';' f9 > f9_2
+paste -d$"\t" f1-2 f9_2 f4- > GCF_002811175_.gff
+grep -v "pseudo=true" GCF_002811175_.gff > GCF_002811175__.gff
+#grep -v "gene_biotype=RNase_P_RNA"
+grep -v "RNA" GCF_002811175__.gff > GCF_002811175___.gff   #3702
+grep "gene_biotype=protein_coding" GCF_002811175.gff > GCF_002811175___.gff
+bedtools getfasta -fi GCF_002811175.1_ASM281117v1_genomic.fna -bed GCF_002811175___.gff -s -fo GCF_002811175.fna -name
+
+
+
+
+
+# --3-- preparing gene_models
+echo ">BIT33" > BIT33.fa;
+merge_seq.py GCF_002811175.fna >> BIT33.fa;
+#NOTE that samtools faidx GCF_002811175.fna;  GCF_002811175.fna.fai has some bugs --> not correct!!!
+bioawk -c fastx '{ print $name, length($seq) }' < GCF_002811175.fna > length.txt 
+#check the length are always 3 times of nt, [BIT33_RS12745   1096] is not correct!
+# search delete the first base in BIT33_RS12745 in GCF_002811175.fna: rerunning this block.
+# WKLILI*TN*KT* LIVAKHYGGIFDYDLKK,  DELETE 39 nt bases at the beginning in GCF_002811175.fna. 1056
+#comparing the protein with #https://www.ncbi.nlm.nih.gov/protein/WP_071543072.1?report=genbank&log$=prottop&blast_rank=1&RID=H1772H02014
+
+
+
+generate_gene_model.py length.txt > ../../GAMOLA2/Results/gene_models/BIT33.fa.combined;
+#generate_gene_model.py length.txt > model.temp4
+#cp model.temp4 ../../GAMOLA2/Results/gene_models/BIT33.fa.combined;
+cp BIT33.fa ../../GAMOLA2/Input_sequences
+
+
+# MODIFYING the start_codons in source code
+#grep "start" Error.log | sort -u > no_classic_startcodon.txt
+#ata, atc, att, ctg
+
+
+ 
+# --4-- running GAMOLA2, select only one type annotation, for example blastp (Swissprot or NCBI) --> HD04_comp1_SwissProt__.fa.gb and HD04_comp1_NCBI__.fa.gb
+#https://www.biostars.org/p/336016/
+cd GAMOLA2
+./Gamola.pl
+
+
+
+
+
+
+
+
+#---- until here, next week TODO from this point!!! ----
+
+
+# --5-- analyse GAMOLA2-results 
+# DEBUG1: not all COG annotation into the fa.gb file
+sed -i -e 's/Annotation:  ~~~~/Annotation:  None/g' *   #This step may not be necessary!
+sed -i -e 's/Class: ,         /Class: None, None/g' *fa_COG_*
+# regenerate fa.gb files in GAMOLA2
+
+
+
+for sample in HD04_comp1 HD04_comp2 HD21_comp HD26_comp HD27_comp HD29_comp HD33_comp HD59_comp; do
+# --5.1-- generate fa.fai-file. NOTE that id order in fa.fai should be consistent with gene_model file (GAMOLA2/Results/gene_models/${sample}.fa.combined)
+format_fasta_header.py ${sample}/roary/pan_genome_reference.fa > ${sample}/roary/pan_genome_reference_.fa
+samtools faidx ${sample}/roary/pan_genome_reference_.fa
+# --5.2-- prepare __.fa.gb
+cp GAMOLA2/Consolidated_results/${sample}.fa/${sample}.fa.gb ${sample}/gamola2/${sample}.fa.gb
+cd ${sample}/gamola2
+awk '{print $0 "ORIGIN"> "file" NR}' RS='ORIGIN'  ${sample}.fa.gb
+sed -i 's/</ /g' file2
+sed -i 's/^ //g' file2
+cat file1 file2 > ${sample}_.fa.gb
+update_locustag.py ${sample}_.fa.gb ../roary/pan_genome_reference_.fa.fai > ${sample}__.fa.gb
+cd ../..
+done
+# manually clean the empty lines after 'ORIGIN' and the last line containing 'ORIGIN'
+
+
+
+# --5.3-- merge gene_presence_absence.csv with __.fa.gb
+# DEBUG2:
+  BiopythonParserWarning)
+/home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '590033..589513'
+  BiopythonParserWarning)
+/home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '933646..933633'
+  BiopythonParserWarning)
+/home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '1840216..1839459'
+# Solutions of BUG2: exchange the start and end positions
+process_gamola_gb_HAPDICS.py ../roary/gene_presence_absence.csv HDxx_xxxx__.fa.gb > annotated_gene_presence_absence.csv
+
+
+
+
+
+
+
+
+
+
+#-------------------------------
+#---- process Qinjie's data ----
+# --5.1-- generate fa.fai-file. NOTE that id order in fa.fai should be consistent with gene_model file (GAMOLA2/Results/gene_models/BIT33.fa.combined)
+samtools faidx ./results/reference_genome/GCF_002811175.fna
+
+
+
+# --5.2-- prepare __.fa.gb
+cp GAMOLA2/Consolidated_results/BIT33.fa/BIT33.fa.gb ./
+awk '{print $0 "ORIGIN"> "file" NR}' RS='ORIGIN'  BIT33.fa.gb
+sed -i 's/</ /g' file2
+sed -i 's/^ //g' file2
+cat file1 file2 > BIT33_.fa.gb
+update_locustag.py BIT33_.fa.gb ./results/reference_genome/GCF_002811175.fna.fai > BIT33__.fa.gb
+# manually clean the empty lines after 'ORIGIN' and the last line containing 'ORIGIN'
+
+
+
+# --5.3-- merge degene-list of RNASeq with __.fa.gb
+#DEBUG2:
+/home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '151100..151093'
+  BiopythonParserWarning)
+/home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '2809251..2806589'
+  BiopythonParserWarning)
+/home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '3037667..3036778'
+  BiopythonParserWarning)
+/home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '3385735..3385344'
+process_gamola_gb.py adeIJ_ko_vs_wt_background.txt BIT33__.fa.gb > annotated_degenes.csv
+
+
+
+
+#delete the empty three columns.
+
+
