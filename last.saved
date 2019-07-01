@@ -1,0 +1,427 @@
+#CUTOFF VALUES
+cutoff	USER DEFINED PARAMTERS
+
+#default value for Blast cut-off
+Blast_cut	1e-10
+
+#default value for COG cut-off
+COG_cut	1e-02
+
+#default value for PFam cut-off
+PFam_cut	1e-02
+
+#default value for TIGRfam cut-off
+TIGRfam_cut	1e-02
+
+#STANDARD DIRECTORIES
+standard	USER DEFINED PARAMETERS
+
+#INPUT: input directory
+input_files	/media/jhuang/Titisee/GAMOLA2/Input_sequences
+
+#RESULTS: directory for results
+results	/media/jhuang/Titisee/GAMOLA2/Results/Genbank_annotation
+
+#GENE MODEL: location of the Glimmer model files
+glimmer_model	/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/Glimmer_models
+
+#GENE MODEL: location of the Glimmer2 program
+glprog2	/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/Glimmer2
+
+#GENE MODEL: location of the Glimmer3 program
+glprog3	/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/Glimmer3
+
+#GENE MODEL: location of Critica scripts
+critica	/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/critica
+
+#GENE MODEL: location of Prodigal program
+prodigal	/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/Prodigal
+
+#GENE MODEL: location of intergenic BlastP results
+ig_results	/media/jhuang/Titisee/GAMOLA2/Results/IG_Blast_results
+
+#GENE MODEL: output directory for Gene models
+genemodel_output	/media/jhuang/Titisee/GAMOLA2/Results/gene_models
+
+#BLAST: directory for Genbank-results
+blast_results	/media/jhuang/Titisee/GAMOLA2/Results/Blast_results
+
+#BLAST: location of databases
+blast_db_path	/media/jhuang/Titisee/GAMOLA2/Blast_db
+
+#BLAST: location of executables
+blast_executables	/media/jhuang/Titisee/GAMOLA2/Programmes/Blast/bin
+
+#BLAST-Plus: location of executables
+blast_plus_executables	/media/jhuang/Titisee/GAMOLA2/Programmes/Blast_plus/bin
+
+#COG: directory for results
+COG_results	/media/jhuang/Titisee/GAMOLA2/Results/COG_results
+
+#COG: directory for database and parsing files
+COG_db_path	/media/jhuang/Titisee/GAMOLA2/COG_db
+
+#COG: directory for COGcognitor
+COGcognitor_path	/media/jhuang/Titisee/GAMOLA2/Programmes/COGnitor
+
+#PFAM: directory for databases
+pfam_db_path	/media/jhuang/Titisee/GAMOLA2/Pfam_db
+
+#PFAM2: location of hmmer executable
+pfam_executable	/media/jhuang/Titisee/GAMOLA2/Programmes/hmmer
+
+#PFAM3: location of hmmer3 executable
+pfam3_executable	/media/jhuang/Titisee/GAMOLA2/Programmes/hmmer3
+
+#PFAM: directory for results
+pfam_results	/media/jhuang/Titisee/GAMOLA2/Results/PFam_results
+
+#PFAM: directory for PfamA descriptor
+Pfam_descriptor	/media/jhuang/Titisee/GAMOLA2/Pfam_db
+
+#PFAM: directory for PfamB/ADDA descriptor
+PfamB_descriptor	/media/jhuang/Titisee/GAMOLA2/Pfam_db
+
+#INTERPRO: directory for InterPro descriptor
+Interpro_descriptor	/media/jhuang/Titisee/GAMOLA2/Interpro_db
+
+#RFam: directory of databases
+rfam_db_path	/media/jhuang/Titisee/GAMOLA2/Rfam_db
+
+#TIGRFAM: directory for results
+TIGRfam_results	/media/jhuang/Titisee/GAMOLA2/Results/TIGRfam_results
+
+#TIGRFAM: directory for databases
+TIGRfam_db_path	/media/jhuang/Titisee/GAMOLA2/TIGRfam_db
+
+#TIGRFAM: info directory
+TIGRfam_info	/media/jhuang/Titisee/GAMOLA2/TIGRfam_db/TIGRinfo
+
+#Gene Ontology: directory for descriptor
+GO_db_path	/media/jhuang/Titisee/GAMOLA2/TIGRfam_db
+
+#Sequin: directory for Sequin submission
+Sequin_submission	/media/jhuang/Titisee/GAMOLA2/Results/Sequin_submission
+
+#TRANSFER: directory for annotation transfer
+annotation_transfer_dir	/media/jhuang/Titisee/GAMOLA2/Results/Annotation_transfer
+
+#COMPARISON: directory for session comparison
+session_comparison	/media/jhuang/Titisee/GAMOLA2/Results/Session_comparison
+
+#MULTI_FASTA: directory msFASTA-files will be moved to
+move_msfasta	/media/jhuang/Titisee/GAMOLA2/Input_sequences/ms_fasta_files
+
+#MOVE_GB_FILES: directory were input Genbank files will be moved to
+move_gb	/media/jhuang/Titisee/GAMOLA2/Input_sequences/ms_fasta_files
+
+#DIRECTORIES FOR STRUCTURAL ANALYSES
+structural_analyses	USER DEFINED PARAMETERS
+
+#tRNAScan-SE
+trnascan_dir	/media/jhuang/Titisee/GAMOLA2/Programmes/tRNA_Scan_SE
+
+#tRNAScan-SE result folder
+trnascan_results	/media/jhuang/Titisee/GAMOLA2/Results/tRNAscan_results
+
+#Transmembrane helices prediction
+tmhmm_dir	/media/jhuang/Titisee/GAMOLA2/Programmes/tmhmm
+
+#TMHMM result folder
+tmhmm_results	/media/jhuang/Titisee/GAMOLA2/Results/tmhmm_results
+
+#SignalP cleavage site prediction
+signalp_dir	/media/jhuang/Titisee/GAMOLA2/Programmes/signalp
+
+#SignalP result folder
+signalp_results	/media/jhuang/Titisee/GAMOLA2/Results/SignalP_results
+
+#Terminator structure prediction
+transterm_dir	/media/jhuang/Titisee/GAMOLA2/Programmes/TransTerm
+
+#Terminator result folder
+transterm_results	/media/jhuang/Titisee/GAMOLA2/Results/TransTerm_results
+
+#non-coding RNA
+infernal_dir	/media/jhuang/Titisee/GAMOLA2/Programmes/noncodingRNA
+
+#non-coding RNA result folder
+rfam_results	/media/jhuang/Titisee/GAMOLA2/Results/non_coding_RNA_results
+
+#RFam: directory of databases
+rfam_db_path	/media/jhuang/Titisee/GAMOLA2/Rfam_db
+
+#RFam: location of CM dataset
+rfam_cm_path	/media/jhuang/Titisee/GAMOLA2/Rfam_db/cm
+
+#rRNA: location of rRNA databases
+rrna_db_path	/media/jhuang/Titisee/GAMOLA2/rRNA_db
+
+#rRNA: result folder
+rrna_results	/media/jhuang/Titisee/GAMOLA2/Results/rRNA_results
+
+#Vector screen: location of vector database
+vector_db_path	/media/jhuang/Titisee/GAMOLA2/Blast_db
+
+#Vector screen: results folder
+vector_results	/media/jhuang/Titisee/GAMOLA2/Results/vector_results
+
+#CRISPR
+CRISPR_dir	/media/jhuang/Titisee/GAMOLA2/Programmes/CRISPR
+
+#CRISPR result folder
+CRISPR_results	/media/jhuang/Titisee/GAMOLA2/Results/CRISPR_results
+
+#INTERNAL PARAMETERS
+internal	USER DEFINED PARAMETERS
+
+#COG: functional assignment file
+COG_assign	whog
+
+#COG: classification file
+COG_class	fun.txt
+
+#RBSFINDER: default SD
+RBSseq	aggagg
+
+#RBSFINDER: RBS region length
+RBSlength	50
+
+#location and name of tempfile
+tempfile	/media/jhuang/Titisee/GAMOLA2/temp
+
+#spacer string
+spacer	NNNNNNNNNNTTAGTTAGTTAGNNNNNNNNNN
+
+#INTERNET SETUP
+internet	USER DEFINED PARAMETERS
+
+#COG server URL
+COG_server_URL	ftp.ncbi.nih.gov
+
+#COG remote directory
+COG_remote_dir	pub/COG/COG
+
+#COG2014 remote directory
+COG2014_remote_dir	/pub/COG/COG2014/data
+
+#arCOG2014 remote directory
+arCOG2014_remote_dir	pub/wolf/COGs/arCOG
+
+#POG2013 remote directory
+POG2013_remote_dir	pub/kristensen/thousandgenomespogs
+
+#Pfam server URL
+pfam_server_URL	ftp.sanger.ac.uk
+
+#Pfam remote directory
+pfam_remote_dir	pub/databases/Pfam/current_release
+
+#Pfam descriptor directory
+pfam_descriptor_dir	pub/databases/Pfam/current_release/database_files
+
+#Pfam Interpro descriptor directory
+pfam_interpro_descr_dir	pub/databases/Pfam/current_release/database_files
+
+#TIGRfam server URL
+tigrfam_server_URL	ftp.tigr.org
+
+#TIGRfam remote dir
+tigrfam_remote_dir	pub/data/TIGRFAMs
+
+#Gene Ontology server URL
+go_server_URL	ftp.geneontology.org
+
+#Gene ontology descriptor directory
+go_remote_dir	/godatabase/archive/full/latest
+
+#non-coding RNA (Rfam) server URL
+rfam_server_URL	ftp.sanger.ac.uk
+
+#non-coding RNA (Rfam) directory
+rfam_remote_dir	pub/databases/Rfam/CURRENT
+
+#define proxy server for database updates
+proxy	http://domain\user:pwd@gate:port
+
+
+
+####################
+# Don't modify below this point
+
+msg_timeout	7000
+concatenate_input_files	0
+replace_N	1
+reuse_results	1
+clear_results	0
+CPU	10
+HMMER_limit	15
+filter_blast	---
+create_genbank	1
+update_genbank	0
+keep_annotation	1
+remove_dblink	1
+maintain_gene	1
+maintain_locus_tag	1
+maintain_product	0
+maintain_protein_id	0
+update_gb_date	1
+add_qualifiers	1
+gb_header_new	0
+gb_header_reuse	1
+fasta_header_default	1
+fasta_header_individual	0
+update_db	0
+external_gm	1
+internal_gm	0
+ext_gm_folder	/media/jhuang/Titisee/GAMOLA2/Results/gene_models
+use_glimmer2	0
+use_glimmer3	1
+use_prodigal	1
+prodigal_closed_ends	1
+prodigal_translation_table	11: The Bacterial and Plant Plastid Code
+prodigal_masked_seq	1
+prodigal_bypass	1
+prodigal_procedure	Meta
+prodigal_override	1
+selected_gl_model	/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/Glimmer_models/NC_002976.3.model3
+gl_short_file	NC_002976.3.model3
+make_training_file	0
+use_critica	0
+selected_critica_db	Sepidermidis
+full_critica_db	/media/jhuang/Titisee/GAMOLA2/Blast_db/Sepidermidis
+critica_bin	/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/critica
+critica_scripts	/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/critica/scripts
+iterations	3
+iterations_state	0
+scoring_matrix_state	0
+scoring_matrix_file	---
+dicodon_scores_state	0
+dicodon_scores_file	---
+init_scores_state	0
+init_scores_file	---
+sd_scores_state	0
+sd_scores_file	---
+no_sdscores_state	0
+prom_find_state	0
+prom_scores_state	0
+prom_scores_file	---
+genetic_code	11
+genetic_code_state	0
+threshold	1e-4
+threshold_state	0
+alpha	1.0
+alpha_state	0
+strict_threshold_state	0
+frameshift_threshold	10
+frameshift_threshold_state	0
+quick_stats_state	0
+runintergenicblast	0
+IG_CPU	15
+IG_blast_cluster	1
+IG_blast_threaded	0
+igcluster	0
+intergenicblastdb	/media/jhuang/Titisee/GAMOLA2/Blast_db/swissprot.Jul16
+igblastminlength	200
+igflanking	300
+igmaxevalue	1e-10
+igblastsmart	1
+IGsuperstition	1
+reuseIGresults	1
+clearIGrun	0
+runRBSfinder	0
+blast_selector	1
+blast_cluster	0
+blast_threaded	1
+gene_model_only	0
+translation_table	11: The Bacterial and Plant Plastid Code
+COG_selector	1
+COG_cluster	0
+COG_threaded	1
+COG_type	COG2014
+use_Pfam2	0
+use_Pfam3	1
+Pfam_restrict_domains	1
+Pfam_selector	1
+Pfam_family_max	4
+Pfam_domain_max	4
+TIGRfam_selector	1
+TIGR_hmmer3	1
+TIGR_hmmer2	0
+TIGRfam_family_max	4
+TIGRfam_domain_max	4
+TIGR_annotation	1
+TIGR_EConly	0
+TIGR_ECCDS	1
+TIGR_ECdiscard	0
+allow_COG_anno	1
+legacy_blast	0
+blast_plus	1
+blast_list	100
+blast_summary	1
+blast_type	BlastP
+blast_db	swissprot
+full_blast_db	/media/jhuang/Titisee/GAMOLA2/Blast_db/swissprot
+blast_entry_number	100
+COG_db	COG2014
+full_COG_db	/media/jhuang/Titisee/GAMOLA2/COG_db/COG2014/COG2014
+Pfam_db	Pfam-A.hmm
+full_Pfam_db	/media/jhuang/Titisee/GAMOLA2/Pfam_db/Pfam-A.hmm
+Rfam_db	Rfam
+full_Rfam_db	/media/jhuang/Titisee/GAMOLA2/Rfam_db/Rfam.cm
+TIGRfam_db	TIGRFAMs_15.0_HMM.LIB
+full_TIGRfam_db	/media/jhuang/Titisee/GAMOLA2/TIGRfam_db/TIGRFAMs_15.0_HMM.LIB
+pfam_verbose	both
+tigrfam_verbose	verbose + GO
+trna_selector	1
+trna_org	Bacterial
+trna_sensitivity	0
+trna_sec_struc	0
+rrna_selector	1
+rrna_5S	1
+rrna_16S	1
+rrna_23S	1
+vector_screen_selector	1
+full_vector_db	/media/jhuang/Titisee/GAMOLA2/Blast_db/UniVec
+selected_vector_db	UniVec
+vector_hit_number	100
+vector_penalty	-5
+vector_reward	1
+vector_gapopen	3
+vector_gapextend	3
+vector_dust	1
+vector_soft_masking	1
+vector_evalue	700
+vector_xdrop	1.75e12
+ncrna_selector	1
+ncrna_verbose	1
+ncrna_IG_only	1
+ncrna_local	local
+ncrna_pipelinefilter	--default
+ncrna_align	0
+ncrna_ignore_trna	1
+ncrna_ignore_rrna	1
+ncrna_overlap	1
+ncrna_threshold	1e-05
+ncrna_splitseq	100
+tmhmm_selector	1
+tmhmm_domains	1
+signalp_selector	1
+signalp_org	gram positive
+signalp_min	10
+signalp_trunc	70
+signalp_method	both
+signalp4_method	SignalP-TM
+terminator_selector	1
+CRISPR_selector	1
+CRISPR_minNR	3
+CRISPR_maxWL	6
+CRISPR_minRL	19
+CRISPR_maxRL	38
+CRISPR_minSL	19
+CRISPR_maxSL	48
+sort_results	1
+compress_results	0
+project_name	genome
+genbank_key_order	RBS;gene;CDS;COG_match;PFAM_match;TIGR_match;signalP;TMM;terminator
+genbank_header	F__locus  LOCUS ; S__designation  unnamed ; S__length  1 ; S__type  DNA ; S__format  linear ; S__domain  BCT ; S__date  01-01-2008 ; F__definition  none ; F__accession  unnamed ; F__version  1.0 ; F__keywords  GAMOLA annotation ; F__source  none ; S__organism  none ; F__reference_1  none ; S__authors_1  none ; S__title_1  none ; S__journal_1  none ; S__pubmed_1  none ; F__comment  none
