@@ -1,0 +1,344 @@
+trainGlimmerHMM
+
+
+
+genbankdownload.py -t fasta NC_002976.3 > NC_002976.3.fa
+genbankdownload.py -t fasta NC_004461.1 >> NC_004461.1.fa
+
+genbankdownload.py -t fasta NC_002976.3 > Sepidermidis.fna
+genbankdownload.py -t fasta NC_004461.1 >> Sepidermidis.fna
+genbankdownload.py -t fasta LT571449.1 >> Sepidermidis.fna
+genbankdownload.py -t fasta LR134536.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP013943.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP000029.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta NC_002976.3  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP018842.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP033782.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP034115.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP009046.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP028282.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta AE015929.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta NC_004461.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta FV536246.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta FV536247.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta FV536248.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta FV536249.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP014119.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP022247.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta HG813242.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP014132.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP030246.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP034111.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP020463.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta LR134242.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP024437.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP024408.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta CP010942.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta GG749255.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta GG696799.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta GG696728.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta KB373335.1  >> Sepidermidis.fna
+genbankdownload.py -t fasta KB821726.1  >> Sepidermidis.fna
+
+
+
+
+
+
+#https://books.google.de/books?id=FKRjCgAAQBAJ&pg=PA823&lpg=PA823&dq=build-icm+glimmer3&source=bl&ots=6j7L-jZnu6&sig=ACfU3U23mseAgbeoK67lIYlKteAWfTmXYg&hl=de&sa=X&ved=2ahUKEwiR9OLA0K7iAhWOyaQKHUPlBpI4ChDoATAAegQICRAB#v=onepage&q=build-icm%20glimmer3&f=false
+
+# download coding sequence of RP62A
+mv ~/Downloads/sequence\(2\).txt NC_002976.3.fna
+
+#https://www.biostars.org/p/19469/
+#./Programmes/Glimmer3/build-icm --text NC_002976.3.txt < NC_002976.3.fna
+./Programmes/Glimmer3/build-icm NC_002976.3.model3 < NC_002976.3.fna
+
+
+
+#DEBUG: IMPORTANT!
+mkdir Genbank_annotation IG_Blast_results gene_models Blast_results COG_results PFam_results TIGRfam_results Sequin_submission Annotation_transfer Session_comparison tRNAscan_results tmhmm_results SignalP_results TransTerm_results non_coding_RNA_results rRNA_results vector_results CRISPR_results gene_models
+
+
+
+
+
+mv Sepidermidis.model3
+cp ~/DATA/Data_Anna12_HAPDICS_final/HD04_comp1/shovill/HD4N15/contigs.fasta HD4N15.fasta
+
+
+./Programmes/Glimmer3/glimmer3 HD4N15.fsa Sepidermidis.model HD4N15
+/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/Glimmer3/glimmer3 -z 11 -g 100 -l /media/jhuang/Titisee/GAMOLA2/temp /media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/Glimmer_models/Sepidermidis.model3 /media/jhuang/Titisee/GAMOLA2/Results/gene_models/HD4N15.fsa_contig00001.glcoord
+
+
+
+
+
+
+cp ~/DATA/Data_Anna12_HAPDICS_final/HD04_comp1/prokka/HD4N15/HD4N15.fsa ./
+/opt/ActivePerl-5.8/bin/perl Gamola_2.00.12.pl
+
+
+#DEBUG
+Input_sequences/HD4N15dir$ rm -rf *_blastn
+## choose the legycy blast to generate the gene_model, then reuse the gene_model for annotation using the newest blastn.
+
+
+
+
+prodigal 
+/media/jhuang/Titisee/GAMOLA2/Programmes/GeneModelPrediction/Prodigal/prodigal.v2_50.linux -i ssp_cons.fna -o gene.coords.gbk -a protein.translations.faa
+
+
+
+4 /usr/lib/thunderbird/thunderbird                                                                                                        
+./blastp -num_threads 4 -db /media/jhuang/Titisee/GAMOLA2/Blast_db/nr.00 -num_descriptions 5 -num_alignments 5   
+./blastp -num_threads 4 -db /media/jhuang/Titisee/GAMOLA2/Blast_db/nr.00 -num_descriptions 5 -num_alignments 5 
+                                                                                                          
+                                                                                                                                                                             
+blastn -ungapped -evalue 1e-4 -db /media/jhuang/Titisee/GAMOLA2/Blast_db/nt -query /media/jhuang/Titisee/GAMOLA2/Input_sequences/HBUF4875_17-08dir/HBUF4875_17_08=3001=6000                                                                                     
+blastn -ungapped -evalue 1e-4 -db /media/jhuang/Titisee/GAMOLA2/Blast_db/nt -query /media/jhuang/Titisee/GAMOLA2/Input_sequences/HBUF4875_17-08dir/HBUF4875_17_08=1=3000           
+ 
+                                                                                                                                                                             
+#1172 fragments
+
+   ${$args{main_window}}->update;
+   &blastcontigs(main_window   => $args{main_window},
+                 progress_bar  => $args{progress_bar},
+                 auto_ini_ref  => $args{auto_ini_ref},
+                 ini_ref       => $args{ini_ref},
+                 filename      => $args{filename},
+                 directory     => ${$args{ini_ref}}{input_files},
+                 blast         => "${$args{ini_ref}}{blast_executables}/blastall -p blastn -g F -e 1e-4 -a 15",
+                );
+   #test if critica created blast pairs - if not, abort with error message
+   unless (-s ${$args{ini_ref}}{input_files}.'/'.$args{filename}.'.blast.pairs' > 0) {
+      my $error_msg = ${$args{main_window}}->Dialog(-title   => 'Error',
+                                                    -text    => "Error creating Blast pairs in Critica for $args{filename}",
+                                                    -buttons => ['OK'],
+                                                    -bitmap    => 'info');
+      $error_msg->after(${$args{auto_ini_ref}}{msg_timeout}, sub {$error_msg->Exit()});
+      $error_msg-> Show();
+      open  ERRORLOG, ">>${$args{auto_ini_ref}}{work_dir}/Error.log";
+      print ERRORLOG "Error creating Blast pairs in Critica for $args{filename}".
+                     "\n\n";
+      close ERRORLOG;
+
+
+/media/jhuang/Titisee/GAMOLA2/Programmes/Blast/bin/blastall -p blastn -g F -e 1e-4 -a 15 -i Input_sequences/NC_002976.3.fa -d Blast_db/Sepidermidis
+   #make blast pairs
+   &blastpair_critica(main_window   => $args{main_window},
+                      progress_bar  => $args{progress_bar},
+                      auto_ini_ref  => $args{auto_ini_ref},
+                      ini_ref       => $args{ini_ref},
+                      filename      => $args{filename},
+                      directory     => ${$args{ini_ref}}{input_files}
+                     );
+
+
+                     
+https://www.biostars.org/p/118604/
+AutoFACT
+eggNOG
+                                                                                                          
+ete3 build -a my_sequences.fasta -w eggnog41 -o results/                                                      
+http://eggnog-mapper.embl.de/
+
+https://github.com/WatsonLab/MAGpy
+
+
+-- Interpro_db --: http://www.ebi.ac.uk/interpro/
+
+Pfam_db
+COG_db
+Blast_db
+TIGRfam_db
+
+Swissport_db
+Rfam_db
+blastp  ~/DATA/Data_Anna12_HAPDICS_final/HD04/roary/pan_genome_reference___.fa
+
+
+
+cp ~/DATA/Data_Anna12_HAPDICS_final/HD04_comp1/prokka/HD4N15/HD4N15.ffn ./
+/opt/ActivePerl-5.8/bin/perl Gamola_2.00.12.pl
+
+
+
+
+rm -rf Input_sequences/contig26dir
+tr -d '\r'  < Gamola_2.00.12.pl   > Gamola_2.00.12_.pl
+tr -d '\r'  < progress_bar.pl  > progress_bar_.pl
+
+
+ 
+# deine ChIP Daten sind in folgendem Folder auf dem Server ag96-public NEU\j_huang\190522_NB501882_0127_AHG7YGBGXB
+
+find . -type f -name "*.pm" -print0 | xargs -0 sed -i '' -e 's/\/data\/home\/altermanne\/Perl\/bin\/perl/\/opt\/ActivePerl-5.8\/bin\/perl5.8.8/g'
+find . -type f -name "*.pm" -print0 | xargs -0 sed -i '' -e 's/\/usr\/bin\/perl/\/opt\/ActivePerl-5.8\/bin\/perl5.8.8/g'
+
+find . -type f -name "*.pm" -print0 | xargs -0 sed -i '' -e 's/\/opt\/ActivePerl-5.8\/bin\/perl5.8.8/\/usr\/bin\/env\ perl/g'
+find . -type f -name "*.pm" -print0 | xargs -0 sed -i '' -e 's/\/opt\/ActivePerl-5.8\/bin\/perl5.8.8/\/usr\/bin\/env\ perl/g'
+/usr/bin/env perl
+
+
+./Gamola_2.00.12.pl -I/opt/ActivePerl-5.8/lib
+
+(@INC contains: /media/jhuang/Titisee/GAMOLA2/lib/Basics 
+/home/jhuang/Tools/tcoffee/Version_11.00.8cbe486/perl/lib/perl5 
+/home/jhuang/Tools/biopieces/src/perl 
+/home/jhuang/anaconda3/lib/site_perl/5.26.2/x86_64-linux-thread-multi 
+/home/jhuang/anaconda3/lib/site_perl/5.26.2 
+/home/jhuang/anaconda3/lib/5.26.2/x86_64-linux-thread-multi 
+/home/jhuang/anaconda3/lib/5.26.2 .) at /media/jhuang/Titisee/GAMOLA2/lib/Basics/progress_bar.pl line 8.
+
+
+
+(@INC contains: 
+/media/jhuang/Titisee/GAMOLA2/lib/Basics 
+/home/jhuang/Tools/tcoffee/Version_11.00.8cbe486/perl/lib/perl5 
+/home/jhuang/Tools/biopieces/src/perl 
+/home/jhuang/anaconda3/envs/gamola2/lib/site_perl/5.26.2/x86_64-linux-thread-multi 
+/home/jhuang/anaconda3/envs/gamola2/lib/site_perl/5.26.2 
+/home/jhuang/anaconda3/envs/gamola2/lib/5.26.2/x86_64-linux-thread-multi 
+/home/jhuang/anaconda3/envs/gamola2/lib/5.26.2 .) at /media/jhuang/Titisee/GAMOLA2/lib/Basics/progress_bar.pl line 8.
+
+ln -s perl5 5.26.2
+
+error_popup.pm:#!/usr/bin/perl
+progress_bar.pm:#!/usr/bin/perl
+ProgressBar.pm:  #!/usr/bin/perl
+
+find . -type f -name "*.pl" -print0 | xargs -0 sed -i '' -e 's/\/opt\/ActivePerl-5.8\/bin\/perl/\/usr\/bin\/env\ perl/g'
+find . -type f -name "*.pm" -print0 | xargs -0 sed -i '' -e 's/\/opt\/ActivePerl-5.8\/bin\/perl/\/usr\/bin\/env\ perl/g'
+
+/opt/ActivePerl-5.26/bin/cpan
+#Can't locate Tk.pm in @INC (you may need to install the Tk module) (@INC contains: /media/jhuang/Titisee/GAMOLA2/lib /opt/ActivePerl-5.26/lib /opt/ActivePerl-5.26/site/lib) at Gamola_2.00.12.pl line 10, since in the 26 version, no Tk.model, only Tkx.pm
+
+find . -type f -name "*.pm" -print0 | xargs -0 sed -i '' -e 's/\/usr\/bin\/env\ perl/\/opt\/ActivePerl-5.8\/bin\/perl/g'
+find . -type f -name "*.pm" -print0 | xargs -0 sed -i '' -e 's/\/data\/home\/altermanne\/Perl/\/opt\/ActivePerl-5.8/g'
+
+./Basics/File-Rename-0.05/rename.PL:print OUT "#!perl -w\n";  #-->/opt/ActivePerl-5.8/bin/perl
+
+grep -r "5.006" .
+
+grep -r "Cwd" .
+
+
+# during generating the glimmer, prodigal, critica (using blast_old)
+# integenic blast, blast (blast+)
+.37 ./blastp -num_threads 4 -db /media/jhuang/Titisee/GAMOLA2/Blast_db/nr -num_descriptions 5 -num_alignments 5     
+23208 jhuang    20   0 2787008 491328  82644 S  58,9  0,7   9889:22 /usr/lib/thunderbird/thunderbird   
+
+
+#DEBUG
+./Basics/File-Rename-0.05/rename.PL
+5.008
+
+
+
+#ftp://ftp.uniprot.org/pub/databases/uniprot/relnotes.txt
+#https://web.expasy.org/docs/relnotes/relstat.html
+ftp://ftp.uniprot.org/pub/databases/uniprot/
+wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/swissprot.tar.gz
+
+grep -r "Cwd" .
+grep -r "#!" .
+
+
+
+
+
+
+
+# ----------- convert GAMOLA2 results to gff3, and use the roary compare the genes -------------------
+conda activate gamola2
+export PERL5LIB=/opt/ActivePerl-5.26/lib/
+
+/home/jhuang/anaconda3/envs/gamola2/bin/perl /usr/local/bin/bp_genbank2gff3.pl
+
+--
+export PERL5LIB=""
+
+#add ACCESSION in gb
+
+#http://sepsis-omics.github.io/tutorials/modules/roary/
+bp_genbank2gff3.pl HD4N15_contig26.fa/HD4N15_contig26.fa.gb --typesource chromosome --summary
+bp_genbank2gff3.pl HD04-03_contig24.fa/HD04-03_contig24.fa.gb
+
+roary -p 12 -f ./roary -i 95 -cd 99 -s -e -n -v ./*.gff
+
+
+
+
+
+----- ConSpred -----
+https://sourceforge.net/p/conspred/wiki/Home/
+
+
+
+
+
+
+
+
+
+
+cpan> install Tk
+perl -V
+
+conda install -c bioconda perl-module-tk
+conda install -c bioconda perl-5.26.3
+                       
+# -- Update database --
+#Pfam
+wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam32.0/Pfam-A.hmm.gz
+gunzip
+../Programmes/hmmer3/hmmpress Pfam-A.hmm
+wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam32.0/relnotes.txt
+
+wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam32.0/database_files/pfamA.txt.gz; gunzip
+wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam32.0/Pfam-A.clans.tsv.gz; gunzip
+
+#Interpro
+wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam32.0/database_files/interpro.txt.gz; gunzip 
+
+#TIGRFam (15 already current)
+ftp://ftp.jcvi.org/pub/data/TIGRFAMs/
+
+
+
+
+GAMOLA2 software distribution
+
+Readmehttps://drive.google.com/file/d/0B_fIEHIR2oaacWQ1T0Y2dm0wWUk/view?usp=sharing
+GAMOLA2 Manual (PDF) https://drive.google.com/file/d/0B_fIEHIR2oaaczBQT2dYQUw4TUE/view?usp=sharing
+GAMOLA2 distribution  https://drive.google.com/file/d/0B_fIEHIR2oaabVlzcF9NUTlnbjQ/view?usp=sharing
+Customised Artemis 16    https://drive.google.com/file/d/0B_fIEHIR2oaaM1RndXVpZUl4emc/view?usp=sharing
+GAMOLA2 tutorial dataset   https://drive.google.com/file/d/0B_fIEHIR2oaadVpVZEZuSUZBYkU/view?usp=sharing
+Databases   https://drive.google.com/file/d/0B_fIEHIR2oaaVHlRZmc0cWJBOTA/view?usp=sharing
+
+
+cp ~/DATA/Data_Anna12_HAPDICS_final/HD04_comp1/shovill/HD4N15/contigs.fasta HD4N15.fasta
+cp ~/DATA/Data_Anna12_HAPDICS_final/HD04/seq-seq-pan/seq-seq-pan_consensus.fasta HD04_cons.fasta
+cp ~/DATA/Data_Anna12_HAPDICS_final/HD04/seq-seq-pan/seq-seq-pan_consensus.fasta HD04_cons.fasta
+
+
+#protein sequences
+makeblastdb -in Sepidermidis.fna -dbtype 'nucl' -out Sepidermidis #-name -Sepidermidis
+makeblastdb -in Sepidermidis.protein.seq -dbtype 'prot' -out Sepidermidis
+
+
+cp Results/gene_models/seq-seq-pan_consensus.fasta.IG_model Programmes/GeneModelPrediction/Glimmer_models/Sepidermidis.model3
+
+
+
+
+
+
+
+
+
+
+BLAST Database error: No alias or index file found for nucleotide database [/nt] in search path [/media/jhuang/Titisee/GAMOLA2/Programmes/Blast_plus/bin:::]
+
