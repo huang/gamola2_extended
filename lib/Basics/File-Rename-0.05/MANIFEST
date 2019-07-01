@@ -1,0 +1,13 @@
+Changes
+Build.PL
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+README
+t/File-Rename.t
+t/File-Rename-files.t
+t/pod.t
+t/pod-coverage.t
+lib/File/Rename.pm
+rename.PL
+META.yml		Module meta-data (added by MakeMaker)

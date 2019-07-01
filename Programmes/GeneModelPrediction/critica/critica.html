@@ -1,0 +1,953 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta6 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>CRITICA Documentation</TITLE>
+<META NAME="description" CONTENT="CRITICA Documentation">
+<META NAME="keywords" CONTENT="critica">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta6">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="critica.css">
+
+</HEAD>
+
+<BODY >
+
+
+<H1 ALIGN="CENTER">CRITICA Documentation</H1>
+<P ALIGN="CENTER"><STRONG>Jonathan Badger</STRONG></P>
+<P ALIGN="CENTER"><STRONG>August 1, 2000</STRONG></P>
+<BR>
+
+<H2><A NAME="SECTION00010000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html33"
+  HREF="critica.html">Contents</A>
+<LI><A NAME="tex2html34"
+  HREF="critica.html#SECTION00020000000000000000">Introduction</A>
+<LI><A NAME="tex2html35"
+  HREF="critica.html#SECTION00030000000000000000">Installation</A>
+<LI><A NAME="tex2html36"
+  HREF="critica.html#SECTION00040000000000000000">Running CRITICA - a tutorial</A>
+<LI><A NAME="tex2html37"
+  HREF="critica.html#SECTION00050000000000000000">Summary of programs and scripts</A>
+<UL>
+<LI><A NAME="tex2html38"
+  HREF="critica.html#SECTION00051000000000000000">addlongorfs</A>
+<LI><A NAME="tex2html39"
+  HREF="critica.html#SECTION00052000000000000000">annotation-compare</A>
+<LI><A NAME="tex2html40"
+  HREF="critica.html#SECTION00053000000000000000">blast-contigs</A>
+<LI><A NAME="tex2html41"
+  HREF="critica.html#SECTION00054000000000000000">compare-orf-lists</A>
+<LI><A NAME="tex2html42"
+  HREF="critica.html#SECTION00055000000000000000">critica</A>
+<LI><A NAME="tex2html43"
+  HREF="critica.html#SECTION00056000000000000000">dicodontable</A>
+<LI><A NAME="tex2html44"
+  HREF="critica.html#SECTION00057000000000000000">empirical-matrix</A>
+<LI><A NAME="tex2html45"
+  HREF="critica.html#SECTION00058000000000000000">extractcoding</A>
+<LI><A NAME="tex2html46"
+  HREF="critica.html#SECTION00059000000000000000">histo-orf</A>
+<LI><A NAME="tex2html47"
+  HREF="critica.html#SECTION000510000000000000000">intergenic</A>
+<LI><A NAME="tex2html48"
+  HREF="critica.html#SECTION000511000000000000000">iterate-critica</A>
+<LI><A NAME="tex2html49"
+  HREF="critica.html#SECTION000512000000000000000">lookat</A>
+<LI><A NAME="tex2html50"
+  HREF="critica.html#SECTION000513000000000000000">make-blast-pairs</A>
+<LI><A NAME="tex2html51"
+  HREF="critica.html#SECTION000514000000000000000">map-critica-orfs</A>
+<LI><A NAME="tex2html52"
+  HREF="critica.html#SECTION000515000000000000000">motiffind</A>
+<LI><A NAME="tex2html53"
+  HREF="critica.html#SECTION000516000000000000000">removeoverlaps</A>
+<LI><A NAME="tex2html54"
+  HREF="critica.html#SECTION000517000000000000000">reportscore</A>
+<LI><A NAME="tex2html55"
+  HREF="critica.html#SECTION000518000000000000000">scanblastpairs</A>
+<LI><A NAME="tex2html56"
+  HREF="critica.html#SECTION000519000000000000000">translate</A>
+</UL>
+<LI><A NAME="tex2html57"
+  HREF="critica.html#SECTION00060000000000000000">What's New</A>
+<UL>
+<LI><A NAME="tex2html58"
+  HREF="critica.html#SECTION00061000000000000000">Version 1.05</A>
+<LI><A NAME="tex2html59"
+  HREF="critica.html#SECTION00062000000000000000">Version 1.04</A>
+</UL>
+<LI><A NAME="tex2html60"
+  HREF="critica.html#SECTION00070000000000000000">License</A>
+<LI><A NAME="tex2html61"
+  HREF="critica.html#SECTION00080000000000000000">Contact Information</A>
+</UL>
+<!--End of Table of Contents-->
+
+<H1><A NAME="SECTION00020000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+CRITICA is a series of programs designed to find protein coding
+regions in intron-less genomic DNA. It doesn't require (or use) any
+sequence annotation for its predictions. However, it does require that
+at least some of the genes in the sequence have homologs in data-banks
+for CRITICA's comparative analysis and that that the overall dicodon
+bias in these genes is typical of the organism for CRITICA's
+non-comparative analysis. In practice, this means that one should
+either analyze complete genomes with CRITICA or a sizeable chunk
+(>=100,000 nucleotides). It is not required that the sequence be in
+one contig, however.
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+Installation</A>
+</H1>
+
+<P>
+CRITICA is implemented as a series of Perl 5.0 scripts and ANSI C
+code. To make the C programs simply type make (if your compiler is not
+GCC, you'll have to edit the Makefile). Put the generated programs
+somewhere on your path. The scripts in the scripts directory also need
+to be on your path (Critica.pm should be placed somewhere on your
+PERLLIB path). The location of perl in the scripts may have to be
+edited if your perl is not in /usr/bin. Also, you may have to adjust
+several environmental variables for the script blast-contigs:
+CRITICA_BLASTN (default value ``blastn'') is the name of the BLASTN
+program used by CRITICA. CRITICA_BLASTPARM (default value ``-warnings
+-nogaps E=1e-4 E2=1e-4'' for use with WU-BLAST2; a good set of values
+for NCBI BLAST2 is ``-gF -e1e-4'') is a set of parameters to be sent
+to BLASTN (if you use a version of BLASTN that generates gapped
+alignments, you should turn off this feature by adding a flag such as
+-nogap to CRITICA_BLASTPARM). CRITICA_BLASTDB (default value ``gb'')
+is the name of the BLASTN database to be searched. WinCritica.mak is a
+makefile for Microsoft Visual C++ and Makefile is the UNIX
+makefile. The two files critica.tex and critica.html (with a
+stylesheet in critica.css) are simply the documentation that you are
+reading now in L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X&nbsp;and html format. LICENSE is a copy of the terms
+of the GNU Public License (GPL).
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+Running CRITICA - a tutorial</A>
+</H1>
+
+<P>
+Probably the best way to demonstrate how to use CRITICA is to walk
+though a typical analysis. To start with, you need the DNA to be
+analyzed to be in FASTA (also called Pearson) format. 
+Here is an example of part of a FASTA file:
+
+<P>
+<PRE>
+&gt;ECOLI
+AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTC
+TGATAGCAGCTTCTGAACTGGTTACCTGCCGTGAGTAAATTAAAATTTTATTGACTTAGG
+TCACTAAATACTTTAACCAATATAGGCATAGCGCACAGACAGATAAAAATTACAGAGTAC
+ACAACATCCATGAAACGCATTAGCACCACCATTACCACCACCATCACCATTACCACAGGT
+AACGGTGCGGGCTGACGCGTACAGGAAACACAGAAAAAAGCCCGCACCTGACAGTGCGGG
+</PRE>
+
+<P>
+Let's say you were going to analyze <I>E. coli</I> with CRITICA and the
+genomic data was contained in a file named contigs. The first
+part of a CRITICA analysis requires running blastn on small
+subsequences of the genomic data: the script to do this is called
+blast-contigs. Below is an example:
+
+<P>
+<PRE>
+        blast-contigs contigs &gt; EC.blast
+</PRE>
+
+<P>
+If you had additional data not in the main database. you could
+additionally run blast-contigs as follows:
+
+<P>
+<PRE>
+        blast-contigs -db=mydata contigs &gt;&gt; EC.blast
+</PRE>
+
+<P>
+BLASTing a genome against GenBank often takes overnight; be prepared.
+
+<P>
+Next the BLAST output has to be processed into a format
+readable by CRITICA.
+
+<P>
+<PRE>
+	make-blastpairs EC.blast &gt; EC.blast.pairs
+</PRE>
+
+<P>
+Now the program scanblastpairs can be used to tabulate the
+triplets aligned to <I>E. coli</I> in the blast.pairs
+file
+
+<P>
+<PRE>
+	scanblastpairs contigs EC.blast.pairs EC.triplets
+</PRE>
+
+<P>
+Now we can predict coding regions. Because it is best to have CRITICA
+iterate several times, a script iterate-CRITICA has been
+supplied. It is run as follows:
+
+<P>
+<PRE>
+	iterate-CRITICA ecorfs contigs EC.triplets
+</PRE>
+
+<P>
+This will take twenty minutes (on a 300 Mhz Pentium II) to several
+hours (on slower machines) to run and will generate numerous files,
+among them ecorfs0.cds, ecorfs1.cds, ecorfs2.cds,
+and ecorfs3.cds. These files are the predictions made by
+CRITICA at each iteration.  The last file (ecorfs3.cds) should
+be the most accurate.
+
+Here is part of the ecorfs3.cds file for interpretation:
+
+<P>
+<PRE>
+ECOLI  35371  34781  2.86e-35   16   3399   2708  -93 GTG    48  12 AGGA    
+ECOLI  36162  35377  8.28e-50   32   2171   6818   62 ATG    40   8 GGAG    
+ECOLI  37824  36271  8.18e-45   64   1002   7385   63 ATG    84   3 GAGGTG  
+ECOLI  39115  37898  7.12e-53  128      0  10183   63 ATG    76   7 AGGAG   
+ECOLI  40386  39244  4.09e-50  128    324   9258   63 ATG    73   7 GAGGT  
+ECOLI  41931  40417  1.29e-53   64    225  10286   63 ATG  -123   0 -  
+  ^      ^      ^      ^        ^      ^    ^      ^^^^^^   ^^^^^^^^^^^^
+contig start   end    P-value   M     comp  dicod  initiator    SD
+</PRE>
+
+<P>
+The P-value is the amount of statistical support for the coding
+region. Like BLAST, low scores are better. The matrix (M) is the best
+comparative matrix - high matrices mean the homologs found were more
+distant. The start and end are the start and end of the coding region,
+including the terminator. Comp and dicod represent the scores the orf
+has from comparative support and dicodon support respectively, The
+initiator information consists of the score given to the initiator
+codon and the codon itself. The SD information consists of the score
+given to the best SD sequence for the chosen initiator, the number of
+nucleotides between the end of the SD sequence and the start of the
+coding region, and the SD sequence itself.
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+Summary of programs and scripts</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00051000000000000000">
+addlongorfs</A>
+</H2>
+
+<P>
+<PRE>
+Usage: addlongorfs [options] cds-file seq-file 
+Valid addlongorfs options:
+        -orf-aa-length=length
+        -genetic-code=number
+</PRE>
+
+<P>
+This program lists orfs over a certain length that aren't included in
+the cds file given as input. The main use of this program is that it
+is called by iterate-CRITICA if the -add-longorfs=
+option is given.
+
+<P>
+
+<H2><A NAME="SECTION00052000000000000000">
+annotation-compare</A>
+</H2>
+
+<P>
+<PRE>
+usage: annotation-compare annotation.cds prediction.cds
+</PRE>
+
+<P>
+This program compares the results of a CRITICA run against a file of
+known coding regions of the format contig-name start end (...).
+It outputs the percentage of false positives and false negatives, as
+well as the percentages of too early and late start positions. It also
+generates files ending in .fp, .fn, .early and
+.late which have the respective CRITICA calls in them.
+
+<P>
+
+<H2><A NAME="SECTION00053000000000000000">
+blast-contigs</A>
+</H2>
+
+<P>
+<PRE>
+Usage: blast-contigs [-db=dbname] fasta-file
+</PRE>
+
+<P>
+This script blasts the DNA in a fasta file against a DNA
+database. Either the default database (usually GenBank or a
+non-redundant DNA database) is used, or if the -db= option is
+chosen, a database of the user's choice. The DNA to be blasted is
+split into small fragments before BLASTing.
+
+<P>
+
+<H2><A NAME="SECTION00054000000000000000">
+compare-orf-lists</A>
+</H2>
+
+<P>
+<PRE>
+Usage: compare-orf-lists list1 list2
+</PRE>
+
+<P>
+This script compares lists of coding regions. The lists can either be
+in the format of CRITICA .cds files or in a simple format: 
+
+<P>
+<PRE>  
+contig start end
+</PRE>
+
+<P>
+The resulting list is a list of coding regions in list1 not in list2
+and the vice versa. The start position of the coding region doesn't
+matter in these comparisons.
+
+<P>
+
+<H2><A NAME="SECTION00055000000000000000">
+critica</A>
+</H2>
+
+<P>
+<PRE>
+Usage: critica [options] seq triplet-scores
+Valid critica options:
+        -scoring-matrix=file
+        -dicodon-scores=file
+        -init-scores=file
+        -sd-scores=file
+        -prom-scores=file
+        -no-sdscores
+        -prom-find
+        -genetic-code=number
+        -threshold=value
+        -alpha=value
+        -strict-threshold
+        -frameshift-threshold=value
+        -quick-stats
+</PRE>
+
+<P>
+This is the main CRITICA program. It takes as arguments the sequence
+to be analyzed and set of comparative triplets (created by
+scanblastpairs -- see above). It outputs a list of predicted
+coding regions with start positions within two orders of magnitude of
+the best start position for each coding region.
+
+<P>
+
+<H3><A NAME="SECTION00055100000000000000">
+Options</A>
+</H3>
+
+<P>
+-scoring-matrix=file -- this causes CRITICA to use
+an empirically derived scoring matrix instead of the theoretically
+determined scores as described in the manuscript. An advantage of the
+empirical scores is that conservative changes can be
+rewarded. However, in practice I've usually found that this does not
+significantly change the results, suggesting that identities are
+sufficient for finding coding regions.
+
+<P>
+
+<P><P>
+<BR>
+-dicodon-scores -- this causes CRITICA to
+use a set of dicodon scores (generated by the dicodontable
+program -- see below) for noncomparative support.
+
+<P>
+
+<P><P>
+<BR>
+-init-scores -- this causes CRITICA to use
+a set of initiator scores (generated by iterate-critica --
+see below) for initiator choice.
+
+<P>
+
+<P><P>
+<BR>
+-sd-scores -- this causes CRITICA to use a
+set of SD scores (generated by iterate-critica -- see
+below) to improve initiator choice.
+
+<P>
+
+<P><P>
+<BR>
+-prom-scores -- this causes CRITICA to use a
+set of promoter scores (generated by iterate-critica -- see
+below) to improve initiator choice.
+
+<P>
+
+<P><P>
+<BR>
+-no-sdscores -- this turns off the search
+for SD sequences. This is useful for analyzing organisms which you
+know don't use SD sequences.
+
+<P>
+
+<P><P>
+<BR>
+-prom-find -- This turns on the currently
+experimental (and disabled by default) promoter finding routines of
+CRITICA.
+
+<P>
+
+<P><P>
+<BR>
+-genetic code=number -- this causes CRITICA
+to use a different genetic code than the ``universal'' one. The
+numbers used are are the standard NCBI genetic code numbers.
+
+<P>
+
+<P><P>
+<BR>
+-threshold=value -- this sets the threshold
+for the maximum p-value allowed for an region to be considered a
+coding region. The default is <!-- MATH
+ $1\times 10^{-4}$
+ -->
+<IMG
+ WIDTH="65" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$1\times 10^{-4}$">, which seems to work
+the best.
+
+<P>
+
+<P><P>
+<BR>
+-alpha=value -- this sets the parameter
+``alpha'' which scales the dicodon scores down to compensate for their
+non-independent nature. The default value is 1.0.
+
+<P>
+
+<P><P>
+<BR>
+-strict-threshold -- by default CRITICA
+accepts as coding regions regions that meet the demand of the
+threshold even if extending them to a terminator causes the region to
+drop below the amount of support required by the threshold. Using
+-strict-threshold eliminates them. In practice this tends not
+to be desirable, however.
+
+<P>
+
+<P><P>
+<BR>
+-frameshift-threshold=value -- causes
+CRITICA to check for potential frameshift errors in the sequences it
+is analyzing. The value supplied is the number of nucleotides between
+two regions of coding evidence in difference frames below which the
+regions are assumed to be caused by a frameshift. A good value to use
+is 10. The potential frameshifts are outputed to stderr - in the
+case of iterate-critica (below) the messages are redirected to
+the .mesg files.
+
+<P>
+
+<P><P>
+<BR>
+-quick-stats -- one of the more time
+consuming parts of a CRITICA run is calculating the parameters K and
+lambda. This option causes CRITICA to use conservative values (0.2
+and 0.015 respectively) and thus speeds the run (at the expense of
+losing some marginal cases).
+
+<P>
+
+<H2><A NAME="SECTION00056000000000000000">
+dicodontable</A>
+</H2>
+
+<P>
+<PRE>
+Usage: dicodontable [options] cds-file seq-file
+Valid dicodontable options:
+        -fraction-coding=fraction
+</PRE>
+
+<P>
+This program generates a set of dicodon scores from a list of coding
+regions (generated by best-inits, above) and the FASTA file of
+the DNA to be analyzed. The option -fraction-coding allows
+adjustment for the fact that in the first (comparative evidence only
+iteration) less than a realistic percentage of the DNA is called
+coding. The default behavior of iterate CRITICA is to set this
+parameter to 0.8 in the first iteration, and not set it at all in
+following iterations. The table generated by dicodontable has the
+following format:
+
+<P>
+<PRE>
+dicodon dicodon-score frequency-in-noncoding DNA
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00057000000000000000">
+empirical-matrix</A>
+</H2>
+
+<P>
+<PRE>
+Usage: empirical-matrix coding-blast-pairs
+</PRE>
+
+<P>
+This program creates a scoring matrix including conservative changes
+from a blast-pairs file created from a BLASTN run of known coding
+regions in the organism of interest. The scores are based on the log
+odds of two triplets being aligned in the coding frame (the 1 frame)
+vs. being aligned in other frames. The matrix is used via the
+-scoring-matrix option of CRITICA and
+iterate-CRITICA.
+
+<P>
+
+<H2><A NAME="SECTION00058000000000000000">
+extractcoding</A>
+</H2>
+
+<P>
+<PRE>
+Usage: extractcoding [options] fasta-file cds-file
+valid extractcoding options:
+     -desc  (include gene descriptions in headers)
+     -prot  (output translated sequences)
+     -genetic-code=NCBI-num
+     -min=num (minimum length (in amino acids) of extracted genes)
+     -max=num (maximum length (in amino acids) of extracted genes)
+</PRE>
+
+<P>
+This program generates FASTA files of the genes predicted by CRITICA
+(actually, it can read any file that starts contig-name start end).  
+The default is to output DNA sequences; the program can also
+translate the genes if desired (through the -prot option.  The
+-desc option is useful particularly for generating FASTA files
+from annotation files of the format 
+contig-name start end description....
+
+<P>
+
+<H2><A NAME="SECTION00059000000000000000">
+histo-orf</A>
+</H2>
+
+<P>
+<PRE>
+Usage: histo-orf bin-size cds-file
+</PRE>
+
+<P>
+This script produces a histogram of coding-region lengths (in amino
+acids). The arguments are the size (in amino acids) of the histogram
+bin size and the list of coding regions. The list can either be in the
+format of CRITICA .cds files or any file that starts 
+contig-name start end.
+
+<P>
+The program produces input showing the number of orfs that have a
+length less than the number on the left (and whose length is greater
+or equal to the number on the left on the previous line). The percent
+of all coding regions in the bin is listed, as well as the culminative
+percentage.
+
+<P>
+
+<H2><A NAME="SECTION000510000000000000000">
+intergenic</A>
+</H2>
+
+<P>
+<PRE>
+Usage: intergenic [options] fasta-file cds-file
+valid intergenic options:
+     -desc  (include gene descriptions in headers)
+     -min=num (minimum length (in amino acids) of extracted genes)
+     -max=num (maximum length (in amino acids) of extracted genes)
+</PRE>
+
+<P>
+This program generates FASTA files of the regions of the sequences
+provided that are not covered by the genes listed in cds-file.
+
+<P>
+
+<H2><A NAME="SECTION000511000000000000000">
+iterate-critica</A>
+</H2>
+
+<P>
+<PRE>
+iterate-critica: [options] output-name seq-file triplets-scores
+Valid iterate-critica options:
+        -iterations=number (default: 3)
+        -scoring-matrix=file
+        -initial-dicod=file
+        -initial-init=file
+        -initial-sd=file
+        -initial-prom=file
+        -no-sdscores
+        -prom-find
+        -threshold=value
+        -alpha=value
+        -fraction-coding=value
+        -add-longorfs=length
+        -genetic-code=number
+        -strict-threshold
+        -frameshift-threshold=value
+        -quick-stats
+</PRE>
+
+<P>
+This script is the normal way of automating a CRITICA run. The options
+are mostly identical to those of the CRITICA program itself except for
+the ability to set the number of iterations.
+
+<P>
+Some options of note -- -fraction-coding also changing the
+default value is 0.8, (80%), which is typical of the fraction of DNA
+which is actually part of a gene in prokaryotes. If you know that your
+organism is quite different from this you can set your own value.
+
+<P>
+-add-longorfs=length adds to the first iteration all ORFS that
+would encode proteins over a certain length (given in amino
+acids). This can be helpful if there is very little comparative
+information available for the organism being analyzed.
+
+<P>
+
+<H2><A NAME="SECTION000512000000000000000">
+lookat</A>
+</H2>
+
+<P>
+<PRE>
+Usage: lookat [options] fasta-file [contig-name] start end
+valid lookat options:
+     -num include num bases upstream of given region
+     num include num bases downstream of given region
+</PRE>
+
+<P>
+This program allows the user to examine any sub-sequence of a DNA or
+protein sequence. If the start is less than end, the reverse complement
+of the subsequence is given (for DNA of course!)
+
+<P>
+
+<H2><A NAME="SECTION000513000000000000000">
+make-blast-pairs</A>
+</H2>
+
+<P>
+<PRE>
+Usage: make-blastpairs [-exclude=string] blast-file
+</PRE>
+
+<P>
+This script converts BLAST output (generated by blast -contigs,
+above), into a FASTA file with alternating records representing query
+DNA and its corresponding BLAST match. The option -exclude=
+allows the exclusion of DNA from a particular genus or species,
+generally the same genus or species of the query organism. In general,
+this is unneeded because make-blastpairs automatically excludes
+matches with more than 97% identity.
+
+<P>
+
+<H2><A NAME="SECTION000514000000000000000">
+map-critica-orfs</A>
+</H2>
+
+<P>
+<PRE>
+Usage: map-critica-orfs cds-list
+</PRE>
+
+<P>
+This script lists the amount of overlap of each coding region
+predicted by CRITICA with the previous coding region. The output is
+the same as the input but with two additional columns - the first is
+the number of nucleotides of overlap with the previous coding region
+(negative numbers mean there is no overlap but a gap between the two
+genes). The second is the amount of overlap represented as the percent
+of the length of the coding region. 
+
+<P>
+
+<H2><A NAME="SECTION000515000000000000000">
+motiffind</A>
+</H2>
+
+<P>
+<PRE>
+Usage: motiffind [-options] pattern fasta-file
+Valid motiffind options:
+        -compstrand
+</PRE>
+
+<P>
+This program finds instances of the pattern supplied in the FASTA
+file. In the FASTA file contains DNA sequences, ambiguous codes such as
+R and Y can be used (the program decides if a sequence is protein if
+its GC is less than 0.20). If the compstrand option is
+selected, the reverse complement is searched (for DNA sequences).
+
+<P>
+
+<H2><A NAME="SECTION000516000000000000000">
+removeoverlaps</A>
+</H2>
+
+<P>
+<PRE>
+Usage: removeoverlaps seq-file cds-file percent-allowed
+</PRE>
+
+<P>
+This program removes coding regions which overlap more than the
+percentage given. The coding region removed is the one with the least
+support.
+
+<P>
+
+<H2><A NAME="SECTION000517000000000000000">
+reportscore</A>
+</H2>
+
+<P>
+<PRE>
+Usage: reportscore [options] seq triplet-scores contig start end matrix
+Valid options:
+        -dicodon-scores=file
+        -init-scores=file
+        -sd-scores=file
+        -genetic-code=number
+</PRE>
+
+<P>
+The program allows one to determine the score and p-value of a region of
+DNA. This is useful for understanding why CRITICA did not call an expected
+region a coding region.
+
+<P>
+
+<H2><A NAME="SECTION000518000000000000000">
+scanblastpairs</A>
+</H2>
+
+<P>
+<PRE>
+Usage: scanblastpairs seq blast-pairs triplets
+</PRE>
+
+<P>
+This program takes as inputs the FASTA file of the sequence to be
+analyzed, the blast-pairs generated by make-blastpairs (see above),
+and generates a table of triplets aligned to each triplet in the
+sequence file.
+
+<P>
+
+<H2><A NAME="SECTION000519000000000000000">
+translate</A>
+</H2>
+
+<P>
+<PRE>
+Usage: translate [options] fasta-file [contig-name] start end
+valid translate options:
+     -num include num residues upstream of given region
+     num include num residues downstream of given region
+     -genetic-code=NCBI-num
+</PRE>
+
+<P>
+This program allows the user to translate any sub-sequence of a DNA
+sequence. If the start is less than end, the reverse complement of the
+subsequence is used. 
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+What's New</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00061000000000000000">
+Version 1.05</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Changes to Array.c and Array.h to make them more portable.
+Thanks to Peter Li and Xiaoying Lin.
+
+<P>
+</LI>
+<LI>BLAST2 puts carriage returns in sequence names to keep lines
+less than 80 characters in length. This caused make-blastpairs to get
+confused. It has been fixed.
+
+<P>
+</LI>
+<LI>Pseudocount method in <code>dicodontable.c</code> could cause
+noncoding count to go negative. Gary Olsen discovered this and
+suggested a fix.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00062000000000000000">
+Version 1.04</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>CRITICA now runs under Windows (when compiled with Visual
+C++). Thanks to Brian Schick.
+
+<P>
+</LI>
+<LI>blast-contigs now also works with NCBI BLAST2, which has a
+slightly different output format than traditional BLAST.
+
+<P>
+</LI>
+<LI>CRITICA now handles periods, spaces, tabs, and numbers in contig
+names more gracefully. There <EM>shouldn't</EM> be any need for renaming 
+contigs any more.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION00070000000000000000">
+License</A>
+</H1>
+
+<P>
+CRITICA (and its source code) are copyrighted by Jonathan Badger but
+are licensed under the GNU Public License (GPL). What this means is
+that not only are you free to use CRITICA and have access to its
+source code, but are free to incorporate parts of CRITICA into your
+own programs. However, if such programs are used beyond your
+institution or company, you must release their source code under the
+GPL as well.
+
+<P>
+Frankly, I'm surprised I have to say this explicitly. The GPL simply
+embodies what I've always understood as the scientific spirit of
+cooperation which distinguishes modern scientists from secret-hoarding
+medieval alchemists. Just as bench biologists make the mutants and DNA
+sequences mentioned in their papers freely available to their
+colleagues so that additional research can be done, computational
+biologists should be expected to make their source code of the
+programs mentioned in their papers freely available <A NAME="tex2html1"
+  HREF="#foot106"><SUP>1</SUP></A>
+<P>
+Yet there is a disturbing trend in computational biology to only make
+programs available through web servers and make access to the source
+code impossible or only possible after signing legal documents which
+generally forbid use of the licensed source code in the licensee's
+projects. This behavior can only impede scientific progress. So don't
+do it.
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000">
+Contact Information</A>
+</H1>
+If you wish to contact me about CRITICA, here is my address:
+
+<P>
+<PRE>
+Jonathan Badger
+Department of Computer Science
+University of Waterloo
+Waterloo, Ontario N2L 3G1
+Canada
+email: jhbadger@monod.uwaterloo.ca 
+phone: (519) 888-4567 ext. 5321
+fax: (519) 885-1208
+</PRE>
+
+<P>
+
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot106">... available</A><A NAME="foot106"
+ HREF="critica.html#tex2html1"><SUP>1</SUP></A>
+<DD>I'm not
+against proprietary software (sometimes proprietary software has a
+nicer interface and fewer quirks than the equivalent research
+software). However, writing a proprietary sequence analysis package is
+no more science than the writing of a proprietary word processor and
+thus is not worthy of a scientific publication.
+
+</DL><HR>
+<ADDRESS>
+Jonathan Badger
+2000-08-01
+</ADDRESS>
+</BODY>
+</HTML>

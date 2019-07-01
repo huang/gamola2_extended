@@ -1,0 +1,5 @@
+^RCS/
+/RCS/
+\.SKIP$
+\.tar\.gz$
+~$

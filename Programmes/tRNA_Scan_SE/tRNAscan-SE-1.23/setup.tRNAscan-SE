@@ -1,0 +1,2 @@
+setenv PATH "$PATH"":""/media/jhuang/Titisee/GAMOLA2/Programmes/tRNA_Scan_SE"
+setenv MANPATH "$MANPATH"":""/media/jhuang/Titisee/GAMOLA2/Programmes/tRNA_Scan_SE"

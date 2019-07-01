@@ -1,0 +1,20 @@
+Revision history for Perl extension File::Rename.
+
+0.05	Robin Barker 2007-10-03
+	Removed perl 5.6.0 dependencies and successfully
+	tested on perl 5.005_05 (with patched Temp::File).
+
+0.04	Robin Barker 2007-09-27
+	Replaced depencies on perl versions by explicit
+	requirements on modules in Build.PL/Makefile.PL
+
+0.03	Robin Barker 2007-09-26
+	Added --force and --nono options (over_write, no_action)
+
+0.02	Robin Barker 2006-01-13
+	Added t/pod*.t, and extended POD to pass tests
+
+0.01  Mon Dec 13 17:54:05 2004
+	- original version; created by h2xs 1.23 with options
+		-XAn File::Rename
+
