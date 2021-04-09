@@ -4,12 +4,15 @@
 
 
 ## 1, construct env under env bengal2
+```sh
 #under /media/jhuang/Titisee/GAMOLA2
 construct_Results.sh 
 #clean_Results.sh
+```
 
 
-## --2:ASSEMBLY and PROKKA-- prokka two assembly.fa
+## 2, assembly and prokka two assembly.fa
+```sh
 # under bengal3_ac3
 ln -s ~/REFs/plasmid_databases databases
 grep "Staphylococcus" plasmids.csv > plasmids_Staphylococcus.csv  # add the header-line
@@ -21,7 +24,6 @@ hyasp create ncbi_Staphylococcus_genes.fasta -p databases/plasmids_Enterococcus.
 for sample in HD04_10_S79 HD04_1_S70 HD04_2_S71 HD04_3_S72 HD04_4_S73 HD04_5_S74 HD04_6_S75 HD04_7_S76 HD04_8_S77 HD04_9_S78 HD12_10_S89 HD12_1_S80 HD12_2_S81 HD12_3_S82 HD12_4_S83 HD12_5_S84 HD12_6_S85 HD12_7_S86 HD12_8_S87 HD12_9_S88 HD15_10_S10 HD15_1_S1 HD15_2_S2 HD15_3_S3 HD15_4_S4 HD15_5_S5 HD15_6_S6 HD15_7_S7 HD15_8_S8 HD15_9_S9 HD17_1_S90 HD17_2_S91 HD17_3_S92 HD17_4_S93 HD17_5_S94 HD17_6_S95 HD17_7_S96 HD21N14_S67 HD25_11_S11 HD25_12_S12 HD26_1_S69 HD40_5_S16 HD46_8_S68 HD4N1_S13 HD4N2_S14 HD4N6_S15 HD59_10_S66 HD59_1_S57 HD59_2_S58 HD59_3_S59 HD59_4_S60 HD59_5_S61 HD59_6_S62 HD59_7_S63 HD59_8_S64 HD59_9_S65; do
 hyasp_pipeline 180119_N_hyasp/${sample} ncbi_Staphylococcus_genes.fasta -1 /media/jhuang/Elements/Data_Anna12_HAPDICS_HyAsP/180119_N/${sample}_R1_001.fastq -2 /media/jhuang/Elements/Data_Anna12_HAPDICS_HyAsP/180119_N/${sample}_R2_001.fastq
 done
-
 
 #--racon --keep_subplasmids 
 for sample in HD04-03 HD4N15 HD04-08 HD4N01 HD21-7 HD21N14 HD26-5 HD26N1 HD27-3 HD27N1 HD29-5 HD29N4 HD33-2 HD33N22 HD59-01 HD59N26; do
@@ -47,9 +49,11 @@ mv roary roary_HD59_comp
 
 #prokka --usegenus --kingdom Bacteria --genus Staphylococcus --species epidermidis --strain ssp_cons --addgenes --addmrna --outdir seq-seq-pan_prokka --prefix ssp_cons --locustag ssp_cons --force seq-seq-pan/seq-seq-pan_consensus.fasta.blockseparated.fasta
 #-hmm /media/jhuang/Titisee/GAMOLA2/TIGRfam_db/TIGRFAMs_15.0_HMM.LIB
+```
 
 
-## --3.1-- preparing gene_models from roary
+## 3.1, preparing gene_models from roary
+```sh
 for sample in HD04_comp1 HD04_comp2 HD21_comp HD26_comp HD27_comp HD29_comp HD33_comp HD59_comp; do
     cd ${sample}/roary
     echo ">${sample}" > ${sample}.fa;
@@ -61,7 +65,10 @@ for sample in HD04_comp1 HD04_comp2 HD21_comp HD26_comp HD27_comp HD29_comp HD33
     cp ${sample}.fa ../../GAMOLA2/Input_sequences
     cd ../..
 done
-## --3.1.1-- preparing gene_models from roary
+```
+
+## 3.1.1, preparing gene_models from roary
+```sh
 #under ALL78
 for sample in roary; do
     cd ${sample}  # since the DIR Qi_panGenome contains roary results
@@ -74,9 +81,10 @@ for sample in roary; do
     cp ${sample}.fa /media/jhuang/Titisee/GAMOLA2/Input_sequences
     cd ..
 done
+```
 
-
-### --3.2 (deprecated) -- preparing gene_models from seq-seq-pan_prokka/ssp_cons.ffn
+## 3.2(deprecated), preparing gene_models from seq-seq-pan_prokka/ssp_cons.ffn
+```sh
 for sample in HD04 HD05 HD104 HD12 HD15 HD17 HD21 HD25 HD26 HD27 HD29 HD31 HD33 HD39 HD40 HD43 HD46 HD47 HD59 HD66 HD69 HD75 HD99; do
 for sample in HD33; do
     cd ${sample}/seq-seq-pan_prokka
@@ -89,8 +97,10 @@ for sample in HD33; do
     cp ${sample}.fa ../../GAMOLA2/Input_sequences
     cd ../..
 done
+```
 
-# ## --3.3 (doesn't work!)-- preparing gene_models from INPUT_FILE[seq-seq-pan_prokka] for variants_clonal.xls (from gff-file to fa.combined)
+## 3.3(doesn't work!), preparing gene_models from INPUT_FILE[seq-seq-pan_prokka] for variants_clonal.xls (from gff-file to fa.combined)
+```sh
 # #Assigned 4964 locus_tags to CDS and RNA features (220 tRNAs + 7 rRNAs + 4737 CDS = 227 + 4737 = 4964), and + 3 CRISPRs
 # for sample in HD04 HD05 HD104 HD12 HD15 HD17 HD21 HD25 HD26 HD27 HD29 HD31 HD33 HD39 HD40 HD43 HD46 HD47 HD59 HD66 HD69 HD75 HD99; do
 # for sample in HD33; do
@@ -110,9 +120,10 @@ done
 # sed -i -e 's/ssp_cons_00//g' ${sample}.fa.combined
 # sed -i -e 's/ssp_cons_0//g' ${sample}.fa.combined
 # done
+```
 
-
-## --3.4-- preparing gene_models for RNASeq (input RP62A.gb, RP62A.fa, RP62A.gff → RP62A_cds.fa and RP62A_cds.model)
+## 3.4, preparing gene_models for RNASeq (input RP62A.gb, RP62A.fa, RP62A.gff → RP62A_cds.fa and RP62A_cds.model)
+```sh
 #gamola2 with RNASeq-output: e.g. under /media/jhuang/Elements/Data_Tam_RNASeq
 # under results/reference_genome 
 #paaI 
@@ -156,11 +167,11 @@ cp RP62A_cds.fa GAMOLA2/Input_sequences
 # MODIFYING the start_codons in source code 
 #grep "start" Error.log | sort -u > no_classic_startcodon.txt 
 #ata, atc, att, ctg
+```
 
 
-
-
-## --4-- running Gamola.pl
+## 4, running Gamola.pl
+```sh
 #           for HD04, HD05, ...: running GAMOLA2, select only one type annotation, for example blastp (Swissprot or NCBI) --> HD04_comp1_SwissProt__.fa.gb and HD04_comp1_NCBI__.fa.gb
 #https://www.biostars.org/p/336016/
 cd GAMOLA2
@@ -273,11 +284,11 @@ sed -i -e 's/Class: ,/Class: None, None/g' HD33.fa_COG_${sample}
 done
 
 ./Gamola.pl
+```
 
 
-
-#### --5-- update_locustag.py under e.g. ~/DATA/Data_Anna12_HAPDICS_final/ ----
-'''
+## 5, update_locustag.py under e.g. ~/DATA/Data_Anna12_HAPDICS_final/
+```sh
 #for HD**: 
 for sample in HD04 HD05 HD104 HD12 HD15   HD17 HD21 HD25 HD26 HD27   HD29 HD31 HD33 HD39 HD40   HD43 HD46 HD47 HD59 HD66   HD69 HD75 HD99; do
 #for HD**_comp and roary: 
@@ -301,15 +312,12 @@ python ~/Scripts/parseGenbank_extractGenes.py -g ${sample}__.fa.gb -o ${sample}_
 python ~/Scripts/parseGenbank_reformat.py -g ${sample}__.fa.gb -o ${sample}____.fa.gb
 cd ../..
 done
-'''
 ## manually clean the empty lines after 'ORIGIN' and the last line containing 'ORIGIN' in ${sample}/gamola2/${sample}__.fa.gb
+```
 
 
-
-
-
-
-## --6.1-- generating the annotation file with HD**_comp ----
+## 6.1, generating the annotation file with HD**_comp
+```sh
 # Input-format: roary/gene_presence_absence.csv
 # Output-format: "Group ID","NCBI Annotation","Root","COG Code","COG Annotation","PFAM Annotation","Prokka Annotation","No. isolates","Isolate1","Isolate2","Translation"'
 # CORRECT RESULTS, checking the sample order in ../roary/gene_presence_absence.csv, e.g. "HD26-5","HD26N1"
@@ -324,16 +332,18 @@ process_gamola_gb_HAPDICS_plus_contigid.py ../roary/gene_presence_absence.csv HD
 process_gamola_gb_HAPDICS_plus_contigid.py ../roary/gene_presence_absence.csv HD59_comp__.fa.gb ../prokka/HD59-01/HD59-01.gff ../prokka/HD59N26/HD59N26.gff > annotated_gene_presence_absence.csv
 process_gamola_gb_HAPDICS_plus_contigid.py ../roary/gene_presence_absence.csv HD59_comp__.fa.gb ../prokka/HD59-01/HD59-01.gff ../prokka/HD59N26/HD59N26.gff > annotated_gene_presence_absence.csv
 # with libreoffice 'save as csv' can delete all sign '"'
+```
 
-
-## --6.2-- generating the annotation file with HD** ----
+## 6.2, generating the annotation file with HD**
+```sh
 # To security of the variants are based on the current LOCUS_TAG (z.g. ssp_cons_01348). Update all snippy.core.tab__ by using "rerun_clonal.sh"
 # Input-format: ../variants_clonal/snippy.core.tab__
 sed -i -e 's/>ssp_cons_/ssp_cons_/g'  HD99__.fa.gb
 process_gamola_gb_HAPDICS_plus_variants.py ../variants_clonal/snippy.core.tab__ HD99__.fa.gb > annotated_gene_variants.csv
+```
 
-
-## --6.3-- generating the annotation file with DESeq output ----
+## 6.3, generating the annotation file with DESeq output
+```sh
 # Input-format: Data_Tam_RNASeq/format("","baseMean","log2FoldChange","lfcSE","stat","pvalue","padj") generated by R-scripts
 # Output-format: "BIT33 Gene ID","Swiss-Prot Annotation","COG Code","COG Annotation","PFAM Annotation","log2 Fold Change","Fold Change","adj.P.Value","Translation"
 process_gamola_gb.py adeIJ_ko_vs_wt_background.txt BIT33__.fa.gb > annotated_degenes.csv
@@ -350,9 +360,10 @@ cd degenes_annotated/${comp}_output;
 cd ../..;
 done
 #delete the empty three columns.
+```
 
-
-## --6.4-- generating the annotation file with roary output ----
+## 6.4, generating the annotation file with roary output
+```sh
 # Input-format: roary/gene_presence_absence.csv
 # Output-format: "Group ID","NCBI Annotation","Root","COG Code","COG Annotation","PFAM Annotation","Prokka Annotation","No. isolates","Isolate1","Isolate2","Translation"'
 # CORRECT RESULTS
@@ -360,16 +371,15 @@ process_gamola_gb_roary.py ../roary/gene_presence_absence.csv HD04_comp1__.fa.gb
 # Output-format: "Group ID","NCBI Annotation","Root","COG Code","COG Annotation","Prokka Annotation","Translation"'
 process_gamola_gb_roary2.py gene_presence_absence.csv gamola2/roary__.fa.gb > annotated_gene_presence_absence.csv
 process_gamola_gb_scoary.py If_inf_05_05_2020_1757.results.csv roary/gamola2/roary__.fa.gb > annotated_If_inf_05_05_2020_1757.results.csv
-
 # with libreoffice 'save as csv' can delete all sign '"'
+```
 
-
-## --6.5-- generating the annotation file with mergedSNP output ----
+## 6.5, generating the annotation file with mergedSNP output
+```sh
 # Input-format: variants/merged_SNPs_.tab
 # Output-format: CHR     POS     HD5-1   HD5-10  HD5-2   HD5-3   HD5-4   HD5-5   HD5-6   HD5-7   HD5-8   HD5-9   LOCUS_TAG       GENE    PRODUCT Effect  Impact  Functional_Class        Codon_change    Amino_Acid_change       Amino_Acid_Length       COG Code        COG Annotation  PFAM Annotation TIGR Annotation Translation
 # Command:
 process_gamola_gb_HAPDICS_plus_variants.py merged_SNPs_.tab ../gamola2/HD05__.fa.gb > merged_SNPs__.tab
-
 
 #BUG:
 '589777..589257'
@@ -379,11 +389,11 @@ process_gamola_gb_HAPDICS_plus_variants.py merged_SNPs_.tab ../gamola2/HD05__.fa
 /home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '909573..909560'
   BiopythonParserWarning)
 /home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '1640188..1639431'
+```
 
 
-
-
-# --7.1-- csv to xls ----
+## 7.1, csv to xls
+```sh
 for sample in HD04 HD05 HD12 HD15 HD17 HD21 HD25 HD26 HD27 HD29 HD31 HD33 HD39 HD40 HD43 HD46 HD47 HD59 HD66 HD69 HD75 HD99 HD104; do
   cp ${sample}/gamola2/annotated_gene_variants.csv annotated_variants_clonal/${sample}.csv
 done
@@ -397,6 +407,9 @@ for sample in HD04_comp1 HD04_comp2 HD21_comp HD26_comp HD27_comp HD29_comp HD33
 done
 #under bengal3_ac3
 ~/Tools/csv2xls-0.4/csv_to_xls.py HD04_comp1.csv HD04_comp2.csv HD21_comp.csv HD26_comp.csv HD27_comp.csv HD29_comp.csv HD33_comp.csv HD59_comp.csv -d$'\t' -o annotated_gene_clusters.xls
+```
 
-# --7.2--
+## 7.2
+```sh
 ##using libreoffice transfer the separator to '\t' and save as "annotated_gene_presence_absence_.csv"
+```
