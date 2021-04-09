@@ -3,11 +3,7 @@
 #HD04/seq-seq-pan_prokka/ssp_cons.gbk
 
 
-
-# ------------- under conda bengal2 --------------
-
-#### -------------- gamola2 with RNASeq-output: under /media/jhuang/Elements/Data_Tam_RNASeq --------------------------
-## --1-- GAMOLA2_STEP1: construct env
+## 1, construct env under env bengal2
 #under /media/jhuang/Titisee/GAMOLA2
 construct_Results.sh 
 #clean_Results.sh
@@ -117,6 +113,7 @@ done
 
 
 ## --3.4-- preparing gene_models for RNASeq (input RP62A.gb, RP62A.fa, RP62A.gff → RP62A_cds.fa and RP62A_cds.model)
+#gamola2 with RNASeq-output: e.g. under /media/jhuang/Elements/Data_Tam_RNASeq
 # under results/reference_genome 
 #paaI 
 #https://www.biostars.org/p/222028/
