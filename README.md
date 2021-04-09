@@ -65,10 +65,7 @@ for sample in HD04_comp1 HD04_comp2 HD21_comp HD26_comp HD27_comp HD29_comp HD33
     cp ${sample}.fa ../../GAMOLA2/Input_sequences
     cd ../..
 done
-```
 
-## 3.1.1, preparing gene_models from roary
-```sh
 #under ALL78
 for sample in roary; do
     cd ${sample}  # since the DIR Qi_panGenome contains roary results
