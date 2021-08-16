@@ -240,10 +240,10 @@ for line in lines:
         #print log2fc
         #print fc
         #print padj
-        print("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%.2f,%.2f,%.2f,\"%s\""%(locus_tag, gene_name, product, note, cogcode, cogmatch, pfammatch, log2fc_r, fc, padj, translated_seq))
+        print("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%.2f,%.2f,%.2f,\"%s\""%(locus_tag, gene_name, product, note, cogcode, cogmatch, log2fc_r, fc, padj, translated_seq))
     else: 
         ##print('"GroupId","SwissProt_Annotation","NCBI_Annotation","Prokka_Annotation","SwissProt_Product","NCBI_Product","No. isolates","No. sequences","Avg sequences per isolate","Genome Fragment","Order within Fragment","Accessory Fragment","Accessory Order with Fragment","QC","Min group size nuc","Max group size nuc","Avg group size nuc","HD04-03","HD4N15","Translation"')
-        print('"Gene ID","Gene Name","Product","Note","COG Code","COG Annotation","PFAM Annotation","log2 Fold Change","Fold Change","adj.P.Value","Translation"')
+        print('"Gene ID","Gene Name","Product","Note","COG Code","COG Annotation","log2 Fold Change","Fold Change","adj.P.Value","Translation"')
         
 
 ###      BIT33 Gene ID | Annotation | COG Annotation | log2 Fold Change | Fold Change | P-Value 

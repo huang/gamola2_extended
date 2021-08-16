@@ -87,7 +87,6 @@ S       Function unknown
 
 locustag_gene = {}
 locustag_product = {}
-locustag_note = {}
 locustag_translation = {}
 locustag_COGmatch = {}
 locustag_PFAMmatch = {}
@@ -124,7 +123,7 @@ for (index, seq_record) in bioGenbankRecord:
         CDS_start_pos = -1
         CDS_end_pos = -2
         for feature in seq_record.features:
-          if feature.type == 'CDS' or feature.type == 'rRNA' or feature.type == 'tRNA' or feature.type == 'tmRNA':
+          if feature.type == 'CDS':     # or feature.type == 'rRNA' or feature.type == 'tRNA' or feature.type == 'tmRNA':
             if "locus_tag" in feature.qualifiers:
                 locustag = feature.qualifiers['locus_tag'][0]
                 CDS_start_pos = feature.location.start.position
@@ -141,12 +140,9 @@ for (index, seq_record) in bioGenbankRecord:
                 gene_string = feature.qualifiers['gene'][0]
                 #print gene_string
                 # if not find: the last char will be deleted.
-                #locustag_gene[locustag]=gene_string[:gene_string.rfind('_')]
-                locustag_gene[locustag]=gene_string
+                locustag_gene[locustag]=gene_string[:gene_string.rfind('_')]
             if "product" in feature.qualifiers:
                 locustag_product[locustag]=feature.qualifiers['product'][0]
-            if "note" in feature.qualifiers:
-                locustag_note[locustag]=feature.qualifiers['note'][0]
             if "translation" in feature.qualifiers:
                 #print(feature.qualifiers['translation'])
                 locustag_translation[locustag]=feature.qualifiers['translation'][0]
@@ -200,26 +196,24 @@ for line in lines:
         #log2fc = 0.0
         #fc = 0.0
         #padj = 0.0
-        log2fc = float(line.split(",")[2].strip())
-        log2fc_r = round(log2fc, 2)
-        fc = round(2**log2fc, 2)
-        padj_str = line.split(",")[6].strip()
-        if padj_str != "NA":
-          padj = round(float(line.split(",")[6].strip()), 2)
+        #log2fc = float(line.split(",")[2].strip())
+        #log2fc_r = round(log2fc, 2)
+        #fc = round(2**log2fc, 2)
+        #padj_str = line.split(",")[6].strip()
+        #if padj_str != "NA":
+          #padj = round(float(line.split(",")[6].strip()), 2)
+        line_str = line.strip()
         
         #print(locus_tag)
-        gene_name = ""
+        swissprot_gene = ""
         if locus_tag in locustag_gene:
-            gene_name = locustag_gene[locus_tag]  
-        product = ""
+            swissprot_gene = locustag_gene[locus_tag]  
+        swissprot_product = ""
         if locus_tag in locustag_product:
-            product = locustag_product[locus_tag]
-        if locus_tag in locustag_note:
-            note = locustag_note[locus_tag]
+            swissprot_product = locustag_product[locus_tag]
         translated_seq = ""
         if locus_tag in locustag_translation:
             translated_seq = locustag_translation[locus_tag]
-
         cogmatch = ""
         cogcode = ""
         if locus_tag in locustag_COGmatch:
@@ -240,10 +234,11 @@ for line in lines:
         #print log2fc
         #print fc
         #print padj
-        print("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%.2f,%.2f,%.2f,\"%s\""%(locus_tag, gene_name, product, note, cogcode, cogmatch, pfammatch, log2fc_r, fc, padj, translated_seq))
+        print("%s,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\""%(line_str, swissprot_gene, cogcode, cogmatch, pfammatch, translated_seq))
     else: 
         ##print('"GroupId","SwissProt_Annotation","NCBI_Annotation","Prokka_Annotation","SwissProt_Product","NCBI_Product","No. isolates","No. sequences","Avg sequences per isolate","Genome Fragment","Order within Fragment","Accessory Fragment","Accessory Order with Fragment","QC","Min group size nuc","Max group size nuc","Avg group size nuc","HD04-03","HD4N15","Translation"')
-        print('"Gene ID","Gene Name","Product","Note","COG Code","COG Annotation","PFAM Annotation","log2 Fold Change","Fold Change","adj.P.Value","Translation"')
+        #"Swiss-Prot Annotation","COG Code","COG Annotation","PFAM Annotation","Translation"
+        print("%s,Swiss-Prot Annotation,COG Code,COG Annotation,PFAM Annotation,Translation" % (line.strip()))
         
 
 ###      BIT33 Gene ID | Annotation | COG Annotation | log2 Fold Change | Fold Change | P-Value 
