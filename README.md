@@ -388,6 +388,13 @@ process_gamola_gb_HAPDICS_plus_variants.py merged_SNPs_.tab ../gamola2/HD05__.fa
 /home/jhuang/anaconda3/lib/python2.7/site-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '1640188..1639431'
 ```
 
+## 6.6, generating the annotation of scoary output
+```sh
+process_gamola_gb_scoary.py If_inf_16_08_2021_1634.results.csv roary__.fa.gb > annotated_scoary.txt
+Some fields may be wrong.
+  BiopythonParserWarning)
+/usr/local/lib/python2.7/dist-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '948996..948866'
+```
 
 ## 7.1, csv to xls
 ```sh
