@@ -304,9 +304,9 @@ cat file1 file2 > ${sample}_.fa.gb
 update_locustag.py ${sample}_.fa.gb ../../${sample}/pan_genome_reference_.fa.fai > ${sample}__.fa.gb
 #NOTE that __.fa.gb suffices for further usage!
 # following step retains only the feature.type = [“CDS”]
-python ~/Scripts/parseGenbank_extractGenes.py -g ${sample}__.fa.gb -o ${sample}___.fa.gb
+#NOT_REQUIRED: python ~/Scripts/parseGenbank_extractGenes.py -g ${sample}__.fa.gb -o ${sample}___.fa.gb
 # following step corrects the genbank-format. Note that some COG_match records contain false start..end, e.g. COG_match    287381..286861 → needs to be correctly manually
-python ~/Scripts/parseGenbank_reformat.py -g ${sample}__.fa.gb -o ${sample}____.fa.gb
+#NOT_REQUIRED: python ~/Scripts/parseGenbank_reformat.py -g ${sample}__.fa.gb -o ${sample}____.fa.gb
 cd ../..
 done
 ## manually clean the empty lines after 'ORIGIN' and the last line containing 'ORIGIN' in ${sample}/gamola2/${sample}__.fa.gb
