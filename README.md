@@ -418,3 +418,58 @@ done
 ```sh
 ##using libreoffice transfer the separator to '\t' and save as "annotated_gene_presence_absence_.csv"
 ```
+
+## 8, an example process for an annotated scoary file
+```sh
+#--- 1 ----
+construct_Results.sh 
+
+#---- 3.1 ----
+cd roary_182s_95  # since the DIR Qi_panGenome contains roary results
+echo ">roary_182s_95" > roary_182s_95.fa;
+merge_seq.py pan_genome_reference.fa >> roary_182s_95.fa;
+format_fasta_header.py pan_genome_reference.fa > pan_genome_reference_.fa
+samtools faidx pan_genome_reference_.fa
+bioawk -c fastx '{ print $name, length($seq) }' < pan_genome_reference_.fa > length.txt 
+generate_gene_model.py length.txt > /media/jhuang/Titisee/GAMOLA2/Results/gene_models/roary_182s_95.fa.combined;
+cp roary_182s_95.fa /media/jhuang/Titisee/GAMOLA2/Input_sequences
+cd ..
+
+#---- 4 ----
+cd GAMOLA2
+./Gamola.pl
+/media/jhuang/Titisee/GAMOLA2/Results/COG_results
+#grep "Class: ," roary_182s_95.fa_COG_*
+for sample in 10601 10710 11187 11377 12474 12504  1520 1551 2092 2160 2467   289 3455 4694 5862 5863 6166 6464 7618 8007 8406 8784 9157 9373 953; do
+  sed -i -e 's/Class: ,/Class: None, None/g' roary_182s_95.fa_COG_${sample}
+done
+./Gamola.pl
+
+#---- 5 ---- update locustag
+cp /media/jhuang/Titisee/GAMOLA2/Consolidated_results/roary_182s_95.fa/roary_182s_95.fa.gb ./
+awk '{print $0 "ORIGIN"> "file" NR}' RS='ORIGIN' roary_182s_95.fa.gb
+sed -i 's/</ /g' file2
+sed -i 's/^ //g' file2
+cat file1 file2 > roary_182s_95_.fa.gb
+iconv -t UTF-8 -f Windows-1252 roary_182s_95_.fa.gb
+#89600270 Jan 26 13:44 roary_182s_95__.fa.gb
+python ~/Scripts/update_locustag.py roary_182s_95_c.fa.gb /home/jhuang/DATA/Data_Anna_C.acnes/182samples_roaries/roary_182s_95/pan_genome_reference_.fa.fai > roary_182s_95__.fa.gb
+#DEBUG: repeated record "exo" in pan_genome_reference_.fa.fai, should be renamed!
+
+#---- 6.6 ----
+process_gamola_gb_scoary.py If_inf_02_09_2021_1151.results.csv ../../gamola2/roary_182s_95__.fa.gb > annotated_scoary.txt
+Some fields may be wrong.
+  BiopythonParserWarning)
+/usr/local/lib/python2.7/dist-packages/Bio/GenBank/__init__.py:1047: BiopythonParserWarning: Ignoring invalid location: '1186620..1185596'
+sed -i -e 's/1186620\.\.1185596/1185596\.\.1186620/g' roary__.fa.gb
+#DEBUG "group_12676" -> "group_12667"
+
+#---- ADD DNA-Sequences add the end of table as the last column ----
+cut -d',' -f1-1 annotated_scoary.txt > get_seq_ORF.sh
+#mv the bash file under DIR of pan_genome_reference_.fa.fai 
+#samtools faidx pan_genome_reference_.fa group_2201 > seq_ORF.fasta
+#samtools faidx pan_genome_reference_.fa group_2205 >> seq_ORF.fasta
+awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' < seq_ORF.fasta > seq_ORF_.fasta
+grep -v ">" seq_ORF_.fasta > seq_ORF__.txt
+paste -d',' annotated_scoary.txt seq_ORF__.txt > annotated_scoary_.txt
+```
