@@ -422,6 +422,7 @@ done
 ## 8, an example process for an annotated scoary file
 ```sh
 #--- 1 ----
+cd /media/jhuang/Titisee/GAMOLA2
 construct_Results.sh 
 
 #---- 3.1 ----
