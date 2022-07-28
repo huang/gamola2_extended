@@ -478,7 +478,7 @@ iconv -t UTF-8 -f Windows-1252 roary_182s_95_.fa.gb
 python ~/Scripts/update_locustag.py roary_182s_95_c.fa.gb /home/jhuang/DATA/Data_Anna_C.acnes/182samples_roaries/roary_182s_95/pan_genome_reference_.fa.fai 
 #-- if ran [3.2 selected]--
 python ~/Scripts/update_locustag.py roary_186_selected_genes_.fa.gb /home/jhuang/DATA/Data_Anna_C.acnes/scoary/pan_genome_reference_selected.fa.fai > roary_186_selected_genes__.fa.gb 
-> roary_182s_95__.fa.gb
+> roary_186_selected_genes__.fa.gb    #clean old *__.fa.gb
 #DEBUG: repeated record "exo" in pan_genome_reference_.fa.fai, should be renamed!
 
 #---- 6.6 ----
