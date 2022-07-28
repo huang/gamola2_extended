@@ -438,7 +438,7 @@ cd ..
 
 #---- 4 ----
 cd GAMOLA2
-./Gamola.pl
+./Gamola.pl    #No Glimmer model and Critica database due to self-extracted ORF; choosing nr.pal or swissprot.pal as Blast_db; COG2014 as COG_db; Pfam-A.hmm as Pfam_db; No Rfam_db; TIGRFAMS_15.0_HMM.LIB as TIGRfam_db
 /media/jhuang/Titisee/GAMOLA2/Results/COG_results
 #grep "Class: ," roary_182s_95.fa_COG_*
 for sample in 10601 10710 11187 11377 12474 12504  1520 1551 2092 2160 2467   289 3455 4694 5862 5863 6166 6464 7618 8007 8406 8784 9157 9373 953; do
