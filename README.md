@@ -438,6 +438,7 @@ cd ..
 
 #---- 4 ----
 cd GAMOLA2
+#WARNING: !!!!!!swissprot as default database, manually choose nr as Blast_db!!!!!! 
 ./Gamola.pl    #No Glimmer model and Critica database due to self-extracted ORF; choosing nr.pal or swissprot.pal as Blast_db; COG2014 as COG_db; Pfam-A.hmm as Pfam_db; No Rfam_db; TIGRFAMS_15.0_HMM.LIB as TIGRfam_db
 /media/jhuang/Titisee/GAMOLA2/Results/COG_results
 #grep "Class: ," roary_182s_95.fa_COG_*
