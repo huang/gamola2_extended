@@ -425,7 +425,7 @@ done
 cd /media/jhuang/Titisee/GAMOLA2
 construct_Results.sh 
 
-#---- 3.1 ----
+#---- 3.1 (complete, slow, optional) ----
 cd roary_182s_95  # since the DIR Qi_panGenome contains roary results
 echo ">roary_182s_95" > roary_182s_95.fa;
 merge_seq.py pan_genome_reference.fa >> roary_182s_95.fa;
@@ -434,11 +434,30 @@ samtools faidx pan_genome_reference_.fa
 bioawk -c fastx '{ print $name, length($seq) }' < pan_genome_reference_.fa > length.txt 
 generate_gene_model.py length.txt > /media/jhuang/Titisee/GAMOLA2/Results/gene_models/roary_182s_95.fa.combined;
 cp roary_182s_95.fa /media/jhuang/Titisee/GAMOLA2/Input_sequences
-cd ..
+cd /media/jhuang/Titisee/GAMOLA2
+
+#---- 3.2 (500 genes of interest, quick) ----
+#select 500 genes of interest into pan_genome_reference_selected.fa
+cd scoary
+cp ../roary/pan_genome_reference.fa ./
+format_fasta_header.py pan_genome_reference.fa > pan_genome_reference_.fa
+samtools faidx pan_genome_reference_.fa
+cut -f1-1 -d',' If_inf_28_07_2022_1148.results.csv > genes_of_interest.txt
+#transfer the content of genes_of_interest.txt into the following gene_list
+for gene in group_2034 srfAD group_2229 group_2233 group_2230 group_1857 group_1358 group_1974 group_150 group_2474 group_1360 group_2143 group_2306 group_454 group_1339 group_3239 group_622 group_1167 group_3146 group_1930 group_2103 group_2698 group_8800 group_2412 group_1756 group_2998 group_30 group_1946 melA group_1361 group_2999 group_534 ykoD_2 group_1170 oppC group_1966 group_1967 group_2399 irtB group_1538 group_1664 group_839 rl5 group_998 group_8877 group_3215 sbnB sbnA group_1536 group_1987 group_1165 group_1168 group_1535 group_1968 group_1969 glcK group_251 nanK gsiC_2 group_3120 group_455 group_621 group_850 group_1175 yxlF_2 group_877 group_1590 group_2617 group_1506 msbA_2 sufU ilvH group_1140 group_1459 group_1479 group_1512 group_1646 group_1685 atpH_2 group_1801 group_1848 sgbE prfA_1 btuF_3 group_218 group_2288 rpmE2 group_272 group_286 mnaT group_372 leuD group_500 malF malE rbfA nanT_2 yfmO group_64 group_718 dmsB cobN_2 group_807 dmsA group_9 group_1596 group_2104 dasA group_2109 group_2128 dapA_3 group_2704 group_2706 group_2707 group_2708 group_2709 group_2710 group_2712 group_2713 group_2714 group_2715 group_2716 group_2717 group_2718 group_2719 group_2721 group_2722 group_2725 lysA_1 group_2727 group_2728 group_2729 group_2734 group_8774 ulaF_1 group_8776 group_8779 folE_2 queD group_8782 group_8783 group_8784 group_8785 group_8786 group_8787 group_8788 group_8789 group_8790 group_8791 group_8793 group_8794 group_8795 group_8796 group_8797 group_8798 group_8799 group_8801 group_8802 group_8804 group_8805 group_8806 group_8807 group_8808 group_8809 group_8810 group_8811 degU group_8813 group_8814 group_8815 group_8816 group_8817 group_8818 group_8819 group_8820 tcyC group_8822 group_8823 group_8824 group_8825 group_8826 group_8827 group_8828 group_8830 group_8831 group_8832 group_8834 group_8835 group_8836 group_8837 group_8838 group_8839 group_8840 group_8841 group_8842 group_8844 glpR_4 group_8846 group_8847 dat group_8849 tdh_2 group_8851 group_8852 group_8853 group_8854 group_8855 group_8856 group_8858 group_8859 group_8860 group_8861 group_8862 group_8863 group_8864 dppC_2 group_8866 oppF_1 group_8868 group_8869 group_8870 group_8871 group_8872 group_8873 group_8874 group_8875 group_8876 group_8878 group_8879 group_8880 group_8881 group_8882 group_8883 group_8884 group_8885 btuD_9 group_8887 group_8888 group_8889 group_8890 group_8891 group_8892 group_8893 group_8895 group_8896 group_8898 group_8899 group_8901 group_8902 group_8903 group_8904 group_8905 group_8906 group_8907 group_8908 group_8909 group_8910 group_8911 group_8912 hsdR_2 hsdR_1 group_8916 btuD_10 group_8918 group_8920 group_8921 group_8922 group_8923 group_8924 group_8925 group_8926 group_8927 group_8928 group_8930 group_8931 group_8932 group_8933 group_8935 group_8936 group_8937 group_8938 group_8939 group_8940 group_8941 group_8942 group_8943 group_8952 group_8956 group_8962 group_8963 group_8964 group_8965 group_8966 group_8967 group_8968 group_8969 group_8970 yecS group_8972 group_8973 group_8974 group_8975 group_8976 group_8977 group_8978 group_8979 group_8981 group_8982 group_8983 group_8984 group_8985 leuC group_8987 group_8989 group_8990 group_8991 group_8992 group_8993 group_8994 group_8995 group_8996 group_8997 group_8998 group_8999 group_9000 group_9001 group_9002 group_9003 group_9004 group_9005 group_9006 group_9007 group_9008 group_9009 group_9010 group_9011 group_9013 group_9014 group_9015 group_9016 group_9017 group_9018 group_9019 group_9020 group_9021 group_9022 group_9023 group_9024 mbtB group_9026 group_9027 group_9028 group_9030 group_9031 yafQ group_9033 group_9411 group_1859 group_797 group_1970 group_2383 group_1164 group_1971 group_2400 group_2401 group_2232 melC_1 melD_1 group_1178 group_9519 group_2411 ortA metXA group_1213 group_2080 group_2647 group_2723 group_2724 group_1455 group_1860 menA group_407 group_1095 lolD group_3042 group_2404 group_3100 group_3126 group_851 group_852 group_882 group_2406 group_1976 iolE_1 group_2711 group_2720 group_8777 group_8833 group_8894 group_8897 group_8934 group_8944 group_8945 coaBC_1 group_8947 group_8948 group_8949 bioM_1 group_8951 group_8953 group_8954 group_8955 group_8957 group_8958 group_8959 group_8960 group_8961 group_9029 group_59 group_3265 irtA group_2314 group_3123 group_2083 group_770 group_855 group_582 group_1965 group_3065 znuC group_2231 dnaE2 group_3057 group_1978 group_1231 group_840 group_2407 group_2112 group_3119 group_1180 pdhC group_1630 metB group_3203 group_3204 group_3205 group_3206 group_3238 group_3117 group_3354 group_3406 group_8778 group_8843 group_8857 group_8919 group_9012 group_9034 group_9035 group_3102 group_571 ttuB group_1478 group_3058 group_2988 ispF group_3237 group_1319 group_1320 group_1721 group_2198 group_2989 group_2991 group_513 group_970 group_2278 group_3207 group_2133 group_2134 group_9561 group_9628 group_9698 group_224 group_293 group_844 group_1988 group_3125 group_1959 group_2444 group_3271 group_120 group_1288 group_1560 group_1713 bchI_2 yfmC group_53 dinB group_960 group_1595 group_2699 group_2700 group_2701 group_1939 group_2234 group_2357 group_3043 group_2023 group_3089 rihA group_3191 group_3751 group_2987; do
+samtools faidx pan_genome_reference_.fa ${gene} >> pan_genome_reference_selected.fa;
+done
+echo ">roary_186_selected_genes" > roary_186_selected_genes.fa;
+merge_seq.py pan_genome_reference_selected.fa >> roary_186_selected_genes.fa;
+samtools faidx pan_genome_reference_selected.fa
+bioawk -c fastx '{ print $name, length($seq) }' < pan_genome_reference_selected.fa > length.txt 
+generate_gene_model.py length.txt > /media/jhuang/Titisee/GAMOLA2/Results/gene_models/roary_186_selected_genes.fa.combined;
+cp roary_186_selected_genes.fa /media/jhuang/Titisee/GAMOLA2/Input_sequences
+cd /media/jhuang/Titisee/GAMOLA2
 
 #---- 4 ----
 cd GAMOLA2
-#WARNING: !!!!!!swissprot as default database, manually choose nr as Blast_db!!!!!! 
+#WARNING: !!swissprot as default database, manually choose nr as Blast_db --> too slow, better choose swissprot, it is quick!!
 ./Gamola.pl    #No Glimmer model and Critica database due to self-extracted ORF; choosing nr.pal or swissprot.pal as Blast_db; COG2014 as COG_db; Pfam-A.hmm as Pfam_db; No Rfam_db; TIGRFAMS_15.0_HMM.LIB as TIGRfam_db
 /media/jhuang/Titisee/GAMOLA2/Results/COG_results
 #grep "Class: ," roary_182s_95.fa_COG_*
