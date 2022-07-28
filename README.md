@@ -474,7 +474,11 @@ sed -i 's/^ //g' file2
 cat file1 file2 > roary_182s_95_.fa.gb
 iconv -t UTF-8 -f Windows-1252 roary_182s_95_.fa.gb
 #89600270 Jan 26 13:44 roary_182s_95__.fa.gb
-python ~/Scripts/update_locustag.py roary_182s_95_c.fa.gb /home/jhuang/DATA/Data_Anna_C.acnes/182samples_roaries/roary_182s_95/pan_genome_reference_.fa.fai > roary_182s_95__.fa.gb
+#-- if ran [3.1 complete, optional]--
+python ~/Scripts/update_locustag.py roary_182s_95_c.fa.gb /home/jhuang/DATA/Data_Anna_C.acnes/182samples_roaries/roary_182s_95/pan_genome_reference_.fa.fai 
+#-- if ran [3.2 selected]--
+python ~/Scripts/update_locustag.py roary_186_selected_genes_.fa.gb /home/jhuang/DATA/Data_Anna_C.acnes/scoary/pan_genome_reference_selected.fa.fai > roary_186_selected_genes__.fa.gb 
+> roary_182s_95__.fa.gb
 #DEBUG: repeated record "exo" in pan_genome_reference_.fa.fai, should be renamed!
 
 #---- 6.6 ----
