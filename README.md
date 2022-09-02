@@ -491,6 +491,7 @@ sed -i -e 's/1186620\.\.1185596/1185596\.\.1186620/g' roary__.fa.gb
 
 #---- ADD DNA-Sequences add the end of table as the last column ----
 cut -d',' -f1-1 annotated_scoary.txt > get_seq_ORF.sh
+#extend the file get_seq_ORF.sh to extract all DNA-sequences
 #mv the bash file under DIR of pan_genome_reference_.fa.fai 
 #samtools faidx pan_genome_reference_.fa group_2201 > seq_ORF.fasta
 #samtools faidx pan_genome_reference_.fa group_2205 >> seq_ORF.fasta
