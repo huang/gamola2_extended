@@ -497,5 +497,6 @@ cut -d',' -f1-1 annotated_scoary.txt > get_seq_ORF.sh
 #samtools faidx pan_genome_reference_.fa group_2205 >> seq_ORF.fasta
 awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' < seq_ORF.fasta > seq_ORF_.fasta
 grep -v ">" seq_ORF_.fasta > seq_ORF__.txt
+#add "Sequence" to the first line of seq_ORF__.txt
 paste -d',' annotated_scoary.txt seq_ORF__.txt > annotated_scoary_.txt
 ```
